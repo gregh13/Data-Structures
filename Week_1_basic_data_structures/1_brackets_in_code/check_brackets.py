@@ -13,20 +13,28 @@ def find_mismatch(text):
     opening_brackets_stack = []
     for i, next in enumerate(text):
         if next in "([{":
-            char = Bracket(next, i)
+            char = Bracket(next, i+1)
             opening_brackets_stack.append(char)
 
         if next in ")]}":
             top = opening_brackets_stack.pop()
             if top == "[" and next != "]" or top == "(" and next != ")" or top == "{" and next != "}":
-                return False
-    return bool(opening_brackets_stack)
+                unmatched_bracket = Bracket(next, i+1)
+                return True, unmatched_bracket
+    if opening_brackets_stack:
+        open_bracket = opening_brackets_stack[-1]
+        return True, open_bracket
+
+    return False, None
 
 
 def main():
     text = input()
-    mismatch = find_mismatch(text)
-    # Printing answer, write your code here
+    mismatch, bracket = find_mismatch(text)
+    if mismatch:
+        print(bracket.position)
+    else:
+        print("Success")
 
 
 if __name__ == "__main__":
