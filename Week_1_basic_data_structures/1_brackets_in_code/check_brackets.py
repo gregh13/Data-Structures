@@ -16,7 +16,10 @@ def find_mismatch(text):
             char = Bracket(next, i+1)
             opening_brackets_stack.append(char)
 
-        if next in ")]}" and opening_brackets_stack:
+        if next in ")]}":
+            if not opening_brackets_stack:
+                return True, Bracket(next, i+1)
+
             top = opening_brackets_stack.pop()
 
             if (top.char == "[" and next != "]") or (top.char == "(" and next != ")") or (top.char == "{" and next != "}"):
