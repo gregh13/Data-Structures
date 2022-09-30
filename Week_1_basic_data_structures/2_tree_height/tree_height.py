@@ -7,6 +7,7 @@ import threading
 class Node:
     def __init__(self):
         self.children = []
+        self.level = None
 
     def add_child(self, child):
         self.children.append(child)
@@ -31,17 +32,16 @@ def find_height(root):
     if root is None:
         return 0
 
+    root.level = 1
     queue_array = [root]
-    height = 0
+
     while queue_array:
         node = queue_array.pop(0)
-        height += 1
-        children = node.children
-        if children:
-            height -= (len(children) - 1)
-            queue_array.extend(children)
+        for child in node.children:
+            child.level = node.level + 1
+            queue_array.append(child)
 
-    return height
+    return node.level
 
 
 def compute_height(n, parents):
