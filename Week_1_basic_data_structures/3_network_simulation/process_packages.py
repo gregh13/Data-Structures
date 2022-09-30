@@ -13,6 +13,13 @@ class Buffer:
         self.deque = deque([])
 
     def process(self, request):
+        # Check if buffer is empty; if yes, process packet immediately, add to deque
+        if len(self.deque) == 0:
+            finishing_time = request.arrived_at + request.time_to_process
+            self.finish_time.append(finishing_time)
+            self.deque.append(finishing_time)
+            return Response(False, finishing_time)
+
         # Check for any processed packets, remove from deque
         while self.deque[0] <= request.arrived_at:
             self.deque.popleft()
@@ -21,23 +28,14 @@ class Buffer:
         if len(self.deque) == self.size:
             return Response(True, -1)
 
-        # Check if buffer is empty; if yes, process packet immediately, add to deque
-        if len(self.deque) == 0:
-            finishing_time = request.arrived_at + request.time_to_process
-            self.finish_time.append(finishing_time)
-            self.deque.append(finishing_time)
-            return Response(False, finishing_time)
 
         # Add new packet to end of deque
         end_of_deque = self.deque[-1]
         new_deque_end = end_of_deque + request.time_to_process
         self.deque.append(new_deque_end)
+        self.finish_time.append(new_deque_end)
 
-
-
-
-
-        return   # Response(False, -1)
+        return Response(False, new_deque_end)
 
 
 def process_requests(requests, buffer):
