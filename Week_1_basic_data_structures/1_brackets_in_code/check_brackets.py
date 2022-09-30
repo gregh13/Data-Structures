@@ -22,7 +22,7 @@ def find_mismatch(text):
 
             top = opening_brackets_stack.pop()
 
-            if (top.char == "[" and next != "]") or (top.char == "(" and next != ")") or (top.char == "{" and next != "}"):
+            if not are_matching(top.char, next):
                 unmatched_bracket = Bracket(next, i+1)
                 return True, unmatched_bracket
     if opening_brackets_stack:
