@@ -1,6 +1,6 @@
 # python3
 
-from collections import namedtuple
+from collections import namedtuple, deque
 
 Request = namedtuple("Request", ["arrived_at", "time_to_process"])
 Response = namedtuple("Response", ["was_dropped", "started_at"])
@@ -10,10 +10,24 @@ class Buffer:
     def __init__(self, size):
         self.size = size
         self.finish_time = []
+        self.deque = deque([])
 
     def process(self, request):
-        # write your code here
-        return Response(False, -1)
+        # Check if buffer is full; if yes, packet gets dropped
+        if len(self.deque) == self.size:
+            return Response(True, -1)
+
+        # Check if buffer is empty; if yes, process packet immediately
+        if len(self.deque) == 0:
+            finishing_time = request.arrived_at + request.time_to_process
+            self.finish_time.append(finishing_time)
+            return Response(False, finishing_time)
+
+        #
+
+
+
+        return   # Response(False, -1)
 
 
 def process_requests(requests, buffer):
