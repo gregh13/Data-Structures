@@ -15,7 +15,7 @@ class Node:
 def build_tree(n, parents):
 
     root = None
-    node_array = [Node()] * n
+    node_array = [Node() for x in range(n)]
 
     for child_index in range(n):
         parent_index = parents[child_index]
