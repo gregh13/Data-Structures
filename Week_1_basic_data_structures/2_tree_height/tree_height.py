@@ -39,7 +39,7 @@ def find_height(root):
         children = node.children
         if children:
             height -= (len(children) - 1)
-            queue_array.append(*children)
+            queue_array.extend(children)
 
     return height
 
