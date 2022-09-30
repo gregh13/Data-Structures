@@ -31,9 +31,9 @@ def build_tree(n, parents):
 def find_height(root):
     if root is None:
         return 0
-
-    root.level = 1
-    queue_array = [root]
+    node = root
+    node.level = 1
+    queue_array = [node]
 
     while queue_array:
         node = queue_array.pop(0)
@@ -44,7 +44,8 @@ def find_height(root):
     return node.level
 
 
-def compute_height(n, parents):
+def compute_height_naive(n, parents):
+    # Starter algorithm, naive approach
     # Replace this code with a faster implementation
     max_height = 0
     for vertex in range(n):
@@ -60,7 +61,7 @@ def compute_height(n, parents):
 def main():
     n = int(input())
     parents = list(map(int, input().split()))
-    print(compute_height(n, parents))
+    # print(compute_height_naive(n, parents))
     root = build_tree(n, parents)
     print(find_height(root))
 
