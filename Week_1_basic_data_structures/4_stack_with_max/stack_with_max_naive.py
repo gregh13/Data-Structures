@@ -41,6 +41,7 @@ class StackWithMax():
 
 if __name__ == '__main__':
     stack = StackWithMax()
+    fast_stack = FastStackMax()
 
     num_queries = int(sys.stdin.readline())
     for _ in range(num_queries):
@@ -52,5 +53,19 @@ if __name__ == '__main__':
             stack.Pop()
         elif query[0] == "max":
             print(stack.Max())
+        else:
+            assert 0
+
+    print("-------------")
+
+    for _ in range(num_queries):
+        query = sys.stdin.readline().split()
+
+        if query[0] == "push":
+            fast_stack.Push(int(query[1]))
+        elif query[0] == "pop":
+            fast_stack.Pop()
+        elif query[0] == "max":
+            print(fast_stack.Max())
         else:
             assert 0
