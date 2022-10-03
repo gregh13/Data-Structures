@@ -1,5 +1,6 @@
-# python3
-
+from collections import deque
+def deque_solution(sequence, m):
+    pass
 
 def max_sliding_window_naive(sequence, m):
     maximums = []
@@ -7,6 +8,7 @@ def max_sliding_window_naive(sequence, m):
         maximums.append(max(sequence[i:i + m]))
 
     return maximums
+
 
 if __name__ == '__main__':
     n = int(input())
