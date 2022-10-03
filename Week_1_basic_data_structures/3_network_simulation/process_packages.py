@@ -15,12 +15,16 @@ class Buffer:
     def process(self, request):
         # Check for any already processed packets, remove from queue
         if self.queue:
+            # Initialize variable for while loop
             next_up = self.queue[0]
+            # Use the arrived at request time as a metric to determine how much time has passed
             while next_up <= request.arrived_at:
                 self.queue.pop(0)
+                # Check if queue is empty
                 if self.queue:
                     next_up = self.queue[0]
                 else:
+                    # Fancy break :)
                     next_up = float("inf")
 
         # Check if buffer is empty after removing any previous; if yes, process packet immediately, add to queue
