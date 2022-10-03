@@ -22,6 +22,7 @@ class Buffer:
                 self.deque.popleft()
                 # Check if deque is empty
                 if self.deque:
+                    # Initialize for next iteration of while loop
                     next_up = self.deque[0]
                 else:
                     # Fancy break :)
