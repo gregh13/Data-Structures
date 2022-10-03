@@ -8,6 +8,7 @@ def deque_solution(sequence, m):
     # Initialize deque
     de = deque(initial_values)
 
+    # Good for many cases, but not for sorted descending lists
     for i in range(m-1, len(sequence)):
         for _ in range(len(de)):
             if de[-1][0] <= sequence[i]:
@@ -34,6 +35,6 @@ if __name__ == '__main__':
     assert len(input_sequence) == n
     window_size = int(input())
 
-    print(*max_sliding_window_naive(input_sequence, window_size))
-    print("-----------")
+    # print(*max_sliding_window_naive(input_sequence, window_size))
+    # print("-----------")
     print(*deque_solution(input_sequence, window_size))
