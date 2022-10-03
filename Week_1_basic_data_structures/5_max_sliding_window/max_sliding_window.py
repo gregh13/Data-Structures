@@ -7,12 +7,13 @@ def deque_solution(sequence, m):
     # Initialize deque with first window elements (excluding last element of window)
     de.extend(sequence[:m-1])
 
-    for i in range(len(sequence) - m + 1):
+    for i in range(m-1, len(sequence)):
         for _ in range(len(de)):
             if de[-1] <= sequence[i]:
                 de.pop()
         de.append(sequence[i])
         max_values.append(max(de))
+        de.popleft()
 
     return max_values
 
