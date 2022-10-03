@@ -1,5 +1,23 @@
-#python3
+
 import sys
+
+
+class FastStackMax():
+    def __init__(self):
+        self.__stack = []
+        self.max_values = []
+
+    def Push(self, a):
+        self.__stack.append(a)
+
+    def Pop(self):
+        assert(len(self.__stack))
+        self.__stack.pop()
+
+    def Max(self):
+        assert(len(self.__stack))
+        return max(self.__stack)
+
 
 class StackWithMax():
     def __init__(self):
@@ -31,4 +49,4 @@ if __name__ == '__main__':
         elif query[0] == "max":
             print(stack.Max())
         else:
-            assert(0)
+            assert 0
