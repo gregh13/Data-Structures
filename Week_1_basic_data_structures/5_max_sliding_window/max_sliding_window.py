@@ -5,16 +5,21 @@ def deque_solution(sequence, m):
     max_values = []
     # Get initial values for first window (minus right-most element)
     initial_values = [(sequence[i], i) for i in range(m-1)]
+    # Sort initial values
+    initial_values.sort(reverse=True)
     # Initialize deque
     de = deque(initial_values)
 
-    # Good for many cases, but not for sorted descending lists
     for i in range(m-1, len(sequence)):
         for _ in range(len(de)):
             if de[-1][0] <= sequence[i]:
                 de.pop()
+            else:
+                # Since values are already sorted descending, can stop checking
+                break
         de.append((sequence[i], i))
-        max_values.append(max(de)[0])
+        # Since values are sorted, max value in window will be the first value in the deque
+        max_values.append(de[0][0])
         if de[0][1] == i-(m-1):
             de.popleft()
 
