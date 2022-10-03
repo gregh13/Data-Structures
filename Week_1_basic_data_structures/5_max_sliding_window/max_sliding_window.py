@@ -13,8 +13,8 @@ def deque_solution(sequence, m):
             if de[-1][0] <= sequence[i]:
                 de.pop()
         de.append((sequence[i], i))
-        max_values.append(max(de))
-        if de[0][1] == i:
+        max_values.append(max(de)[0])
+        if de[0][1] == i-(m-1):
             de.popleft()
 
     return max_values
