@@ -3,17 +3,19 @@ from collections import deque
 
 def deque_solution(sequence, m):
     max_values = []
-    de = deque([])
-    # Initialize deque with first window elements (excluding last element of window)
-    de.extend(sequence[:m-1])
+    # Get initial values for first window (minus right-most element)
+    initial_values = [(sequence[i], i) for i in range(m-1)]
+    # Initialize deque
+    de = deque([initial_values])
 
     for i in range(m-1, len(sequence)):
         for _ in range(len(de)):
-            if de[-1] <= sequence[i]:
+            if de[-1][0] <= sequence[i]:
                 de.pop()
-        de.append(sequence[i])
+        de.append((sequence[i], i))
         max_values.append(max(de))
-        de.popleft()
+        if de[0][1] == i:
+            de.popleft()
 
     return max_values
 
