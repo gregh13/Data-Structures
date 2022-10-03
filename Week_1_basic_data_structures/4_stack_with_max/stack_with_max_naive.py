@@ -44,19 +44,19 @@ if __name__ == '__main__':
     fast_stack = FastStackMax()
 
     num_queries = int(sys.stdin.readline())
-    for _ in range(num_queries):
-        query = sys.stdin.readline().split()
-
-        if query[0] == "push":
-            stack.Push(int(query[1]))
-        elif query[0] == "pop":
-            stack.Pop()
-        elif query[0] == "max":
-            print(stack.Max())
-        else:
-            assert 0
-
-    print("-------------")
+    # for _ in range(num_queries):
+    #     query = sys.stdin.readline().split()
+    #
+    #     if query[0] == "push":
+    #         stack.Push(int(query[1]))
+    #     elif query[0] == "pop":
+    #         stack.Pop()
+    #     elif query[0] == "max":
+    #         print(stack.Max())
+    #     else:
+    #         assert 0
+    #
+    # print("-------------")
 
     for _ in range(num_queries):
         query = sys.stdin.readline().split()
