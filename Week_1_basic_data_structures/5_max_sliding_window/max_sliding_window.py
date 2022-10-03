@@ -22,6 +22,8 @@ def deque_solution(sequence, m):
         max_values.append(de[0][0])
         while de[0][1] <= i-(m-1):
             de.popleft()
+            if not de:
+                break
 
     return max_values
 
@@ -40,6 +42,6 @@ if __name__ == '__main__':
     assert len(input_sequence) == n
     window_size = int(input())
 
-    print(*max_sliding_window_naive(input_sequence, window_size))
-    print("-----------")
+    # print(*max_sliding_window_naive(input_sequence, window_size))
+    # print("-----------")
     print(*deque_solution(input_sequence, window_size))
