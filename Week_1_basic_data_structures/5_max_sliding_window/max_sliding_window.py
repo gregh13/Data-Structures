@@ -6,7 +6,7 @@ def deque_solution(sequence, m):
     # Get initial values for first window (minus right-most element)
     initial_values = [(sequence[i], i) for i in range(m-1)]
     # Initialize deque
-    de = deque([initial_values])
+    de = deque(initial_values)
 
     for i in range(m-1, len(sequence)):
         for _ in range(len(de)):
@@ -18,6 +18,7 @@ def deque_solution(sequence, m):
             de.popleft()
 
     return max_values
+
 
 def max_sliding_window_naive(sequence, m):
     maximums = []
