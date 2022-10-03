@@ -20,7 +20,7 @@ def deque_solution(sequence, m):
         de.append((sequence[i], i))
         # Since values are sorted, max value in window will be the first value in the deque
         max_values.append(de[0][0])
-        if de[0][1] == i-(m-1):
+        while de[0][1] <= i-(m-1):
             de.popleft()
 
     return max_values
@@ -40,6 +40,6 @@ if __name__ == '__main__':
     assert len(input_sequence) == n
     window_size = int(input())
 
-    # print(*max_sliding_window_naive(input_sequence, window_size))
-    # print("-----------")
+    print(*max_sliding_window_naive(input_sequence, window_size))
+    print("-----------")
     print(*deque_solution(input_sequence, window_size))
