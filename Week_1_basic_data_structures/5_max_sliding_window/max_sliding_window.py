@@ -14,9 +14,7 @@ def deque_solution(sequence, m):
         de.append(sequence[i])
         max_values.append(max(de))
 
-
-
-
+    return max_values
 
 def max_sliding_window_naive(sequence, m):
     maximums = []
@@ -33,4 +31,5 @@ if __name__ == '__main__':
     window_size = int(input())
 
     print(*max_sliding_window_naive(input_sequence, window_size))
-
+    print("-----------")
+    print(*deque_solution(input_sequence, window_size))
