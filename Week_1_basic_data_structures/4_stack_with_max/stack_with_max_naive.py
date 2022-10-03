@@ -8,18 +8,21 @@ class FastStackMax():
         self.max_values = [float("-inf")]
 
     def Push(self, a):
+        # Check if new value should be added to max_value list
         if a >= self.max_values[-1]:
             self.max_values.append(a)
         self.__stack.append(a)
 
     def Pop(self):
         assert(len(self.__stack))
+        # Check if current popped value needs to be removed from max_value list as well
         if self.__stack[-1] == self.max_values[-1]:
             self.max_values.pop()
         self.__stack.pop()
 
     def Max(self):
         assert(len(self.__stack))
+        # Return the last item in max_value as it is the current stack max
         return self.max_values[-1]
 
 
