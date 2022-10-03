@@ -5,18 +5,22 @@ import sys
 class FastStackMax():
     def __init__(self):
         self.__stack = []
-        self.max_values = []
+        self.max_values = [float("-inf")]
 
     def Push(self, a):
+        if a >= self.max_values[-1]:
+            self.max_values.append(a)
         self.__stack.append(a)
 
     def Pop(self):
         assert(len(self.__stack))
+        if self.__stack[-1] == self.max_values[-1]:
+            self.max_values.pop()
         self.__stack.pop()
 
     def Max(self):
         assert(len(self.__stack))
-        return max(self.__stack)
+        return self.max_values[-1]
 
 
 class StackWithMax():
