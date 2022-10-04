@@ -25,12 +25,13 @@ def build_heap(data, n):
         # Child and parent value are in order, no swaps needed
         return
 
-    def sift_down(index):
+    def sift_down(index, n):
+
         pass
 
     swaps = []
 
-    for i in range(n):
+    for i in range(n-1, -1, -1):
         sift_up(i)
 
     return swaps
@@ -51,14 +52,14 @@ def main():
     data = list(map(int, input().split()))
     assert len(data) == n
 
-    print("Data Raw: ", data)
+    # print("Data Raw: ", data)
     # swaps_naive = selection_sort_naive(data)
     swaps = build_heap(data, n)
 
     print(len(swaps))
     for i, j in swaps:
         print(i, j)
-    print("Data Sorted: ", data)
+    # print("Data Sorted: ", data)
 
     # print(len(swaps_naive))
     # for i, j in swaps_naive:
