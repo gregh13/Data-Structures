@@ -17,11 +17,19 @@ def build_heap(data, n):
         if child_index == 0:
             return
         parent_index = (child_index - 1) // 2
-        # Sort ascending, so check if child is less than parent. If so, need to swap
+        # Sort ascending, so check if child is less than parent.
         if data[child_index] < data[parent_index]:
+            # If so, need to swap values
+            data[child_index], data[parent_index] = data[parent_index], data[child_index]
 
+            # Add swap to swap list:
+            swaps.append(child_index, parent_index)
 
-        pass
+            # Continue sifting up using child's new index (i.e. parent_index)
+            sift_up(parent_index)
+
+        # Child and parent value are in order, no swaps needed
+        return
 
     def sift_down(index):
         pass
