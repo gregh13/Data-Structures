@@ -27,24 +27,35 @@ def build_heap(data, n):
         return
 
     def sift_down(parent_index, size):
-
+        # Initialize index of minimum value to parent index
         min_index = parent_index
 
+        # Calculate children indices
         child_1_index = 2*parent_index + 1
         child_2_index = 2*parent_index + 2
 
+        # Make sure child 1 index is in bounds of array and whether value is less than at parent's value
         if child_1_index <= size and data[child_1_index] < data[min_index]:
             min_index = child_1_index
 
+        # Do the same for child 2
         if child_2_index <= size and data[child_2_index] < data[min_index]:
             min_index = child_2_index
 
+        # Check if parent index needs to be swapped
         if parent_index != min_index:
+            # Swap values with the smallest child
             data[min_index], data[parent_index] = data[parent_index], data[min_index]
+
+            # Add swap tuple to list
             swaps.append((min_index, parent_index))
+
+            # Continue checking until leaf node is reached
             sift_down(min_index, size)
+
         return
 
+    # Intialize swap list and size variable
     swaps = []
     size = n - 1
 
