@@ -13,6 +13,11 @@ def build_heap(data):
     #
     # TODO: replace by a more efficient implementation
     swaps = []
+    return swaps
+
+
+def selection_sort_naive(data):
+    swaps = []
     for i in range(len(data)):
         for j in range(i + 1, len(data)):
             if data[i] > data[j]:
@@ -26,10 +31,14 @@ def main():
     data = list(map(int, input().split()))
     assert len(data) == n
 
+    swaps_naive = selection_sort_naive(data)
     swaps = build_heap(data)
 
     print(len(swaps))
     for i, j in swaps:
+        print(i, j)
+    print(len(swaps_naive))
+    for i, j in swaps_naive:
         print(i, j)
 
 
