@@ -27,40 +27,28 @@ def build_heap(data, n):
         return
 
     def sift_down(parent_index, size):
+
+        min_index = parent_index
+
         child_1_index = 2*parent_index + 1
         child_2_index = 2*parent_index + 2
 
-        if child_1_index > size:
-            return
-        child_1_val = data[child_1_index]
-        child_2_val = data[child_2_index]
+        if child_1_index <= size and data[child_1_index] < data[min_index]:
+            min_index = child_1_index
 
-        min_child_index = 0
-        if child_1_val < child_2_val:
-            min_child_index = child_1_index
-        else:
-            min_child_index = child_2_index
+        if child_2_index <= size and data[child_2_index] < data[min_index]:
+            min_index = child_2_index
 
-        if data[parent_index] > data[min_child_index]:
-            data[min_child_index], data[parent_index] = data[parent_index], data[min_child_index]
-
-            sift_down(min_child_index, size)
-
+        if parent_index != min_index:
+            data[min_index], data[parent_index] = data[parent_index], data[min_index]
+            sift_down(min_index, size)
         return
-
-
-
-
-
-
-
 
     swaps = []
     size = n - 1
 
-    for i in range(n-1, 0, -1):
-        sift_up(i)
-
+    for i in range(size//2, 0, -1):
+        sift_down(i, size)
 
     return swaps
 
