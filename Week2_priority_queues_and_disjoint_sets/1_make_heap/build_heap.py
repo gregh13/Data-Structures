@@ -11,6 +11,7 @@ def build_heap(data, n):
         if child_index == 0:
             return
         parent_index = (child_index - 1) // 2
+
         # Sort ascending, so check if child is less than parent.
         if data[child_index] < data[parent_index]:
             # If so, need to swap values
@@ -31,7 +32,7 @@ def build_heap(data, n):
 
     swaps = []
 
-    for i in range(n-1, -1, -1):
+    for i in range(n-1, 0, -1):
         sift_up(i)
 
     return swaps
@@ -47,6 +48,18 @@ def selection_sort_naive(data):
     return swaps
 
 
+def check_answer(data, n):
+    size = n - 1
+
+    for i in range(size):
+        child_1 = 2*i + 1
+        child_2 = 2*i + 2
+        if data[i] > child_1 or data[i] > child_2:
+            print("INCORRECT!")
+            print("Index of parent, child_1, child_2: ", i, child_1, child_2)
+            print("Value at parent, child_1, child_2: ", data[i], data[child_1], data[child_2])
+            break
+
 def main():
     n = int(input())
     data = list(map(int, input().split()))
@@ -57,14 +70,14 @@ def main():
     swaps = build_heap(data, n)
 
     print(len(swaps))
-    for i, j in swaps:
+    for i, j in swaps[90750:]:
         print(i, j)
-    # print("Data Sorted: ", data)
+    print("Data Sorted: ", data[n-50:])
 
     # print(len(swaps_naive))
     # for i, j in swaps_naive:
     #     print(i, j)
-
+    check_answer(data, n)
 
 if __name__ == "__main__":
     main()
