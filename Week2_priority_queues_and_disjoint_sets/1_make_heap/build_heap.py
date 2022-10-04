@@ -51,10 +51,10 @@ def main():
     data = list(map(int, input().split()))
     assert len(data) == n
 
-    swaps_naive = selection_sort_naive(data)
+    print("Data Raw: ", data)
+    # swaps_naive = selection_sort_naive(data)
     swaps = build_heap(data, n)
 
-    print("Data Raw: ", data)
     print(len(swaps))
     for i, j in swaps:
         print(i, j)
