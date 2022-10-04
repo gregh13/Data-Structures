@@ -41,13 +41,14 @@ def build_heap(data, n):
 
         if parent_index != min_index:
             data[min_index], data[parent_index] = data[parent_index], data[min_index]
+            swaps.append((min_index, parent_index))
             sift_down(min_index, size)
         return
 
     swaps = []
     size = n - 1
 
-    for i in range(size//2, 0, -1):
+    for i in range(size//2, -1, -1):
         sift_down(i, size)
 
     return swaps
@@ -66,7 +67,7 @@ def selection_sort_naive(data):
 def check_answer(data, n):
     size = n - 1
 
-    for i in range(size):
+    for i in range(size//2):
         child_1 = 2*i + 1
         child_2 = 2*i + 2
         if data[i] > data[child_1] or data[i] > data[child_2]:
