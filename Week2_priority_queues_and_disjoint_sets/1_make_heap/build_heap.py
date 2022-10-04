@@ -1,7 +1,7 @@
 # python3
 
 
-def build_heap(data):
+def build_heap(data, n):
     """Build a heap from ``data`` inplace.
 
     Returns a sequence of swaps performed by the algorithm.
@@ -12,7 +12,26 @@ def build_heap(data):
     # case gives a quadratic number of swaps.
     #
     # TODO: replace by a more efficient implementation
+
+    def sift_up(child_index):
+        if child_index == 0:
+            return
+        parent_index = (child_index - 1) // 2
+        # Sort ascending, so check if child is less than parent. If so, need to swap
+        if data[child_index] < data[parent_index]:
+
+
+        pass
+
+    def sift_down(index):
+        pass
+
     swaps = []
+
+    for i in range(n):
+
+
+
     return swaps
 
 
@@ -31,7 +50,7 @@ def main():
     data = list(map(int, input().split()))
     assert len(data) == n
 
-    swaps_naive = selection_sort_naive(data)
+    swaps_naive = selection_sort_naive(data, n)
     swaps = build_heap(data)
 
     print(len(swaps))
