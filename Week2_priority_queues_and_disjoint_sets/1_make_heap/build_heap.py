@@ -6,12 +6,6 @@ def build_heap(data, n):
 
     Returns a sequence of swaps performed by the algorithm.
     """
-    # The following naive implementation just sorts the given sequence
-    # using selection sort algorithm and saves the resulting sequence
-    # of swaps. This turns the given array into a heap, but in the worst
-    # case gives a quadratic number of swaps.
-    #
-    # TODO: replace by a more efficient implementation
 
     def sift_up(child_index):
         if child_index == 0:
@@ -37,8 +31,7 @@ def build_heap(data, n):
     swaps = []
 
     for i in range(n):
-
-
+        sift_up(i)
 
     return swaps
 
@@ -58,15 +51,18 @@ def main():
     data = list(map(int, input().split()))
     assert len(data) == n
 
-    swaps_naive = selection_sort_naive(data, n)
-    swaps = build_heap(data)
+    swaps_naive = selection_sort_naive(data)
+    swaps = build_heap(data, n)
 
+    print("Data Raw: ", data)
     print(len(swaps))
     for i, j in swaps:
         print(i, j)
-    print(len(swaps_naive))
-    for i, j in swaps_naive:
-        print(i, j)
+    print("Data Sorted: ", data)
+
+    # print(len(swaps_naive))
+    # for i, j in swaps_naive:
+    #     print(i, j)
 
 
 if __name__ == "__main__":
