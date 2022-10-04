@@ -54,7 +54,7 @@ def check_answer(data, n):
     for i in range(size):
         child_1 = 2*i + 1
         child_2 = 2*i + 2
-        if data[i] > child_1 or data[i] > child_2:
+        if data[i] > data[child_1] or data[i] > data[child_2]:
             print("INCORRECT!")
             print("Index of parent, child_1, child_2: ", i, child_1, child_2)
             print("Value at parent, child_1, child_2: ", data[i], data[child_1], data[child_2])
@@ -70,9 +70,9 @@ def main():
     swaps = build_heap(data, n)
 
     print(len(swaps))
-    for i, j in swaps[90750:]:
-        print(i, j)
-    print("Data Sorted: ", data[n-50:])
+    # for i, j in swaps[]:
+    #     print(i, j)
+    # print("Data Sorted: ", data[n-50:])
 
     # print(len(swaps_naive))
     # for i, j in swaps_naive:
