@@ -23,7 +23,7 @@ def build_heap(data, n):
             data[child_index], data[parent_index] = data[parent_index], data[child_index]
 
             # Add swap to swap list:
-            swaps.append(child_index, parent_index)
+            swaps.append((child_index, parent_index))
 
             # Continue sifting up using child's new index (i.e. parent_index)
             sift_up(parent_index)
