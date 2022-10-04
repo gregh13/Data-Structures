@@ -59,6 +59,7 @@ def build_heap(data, n):
     swaps = []
     size = n - 1
 
+    # Starting at last possible parent node (size//2), builds the tree from the bottom up using sift down
     for i in range(size//2, -1, -1):
         sift_down(i, size)
 
