@@ -81,19 +81,17 @@ def main():
     data = list(map(int, input().split()))
     assert len(data) == n
 
-    # print("Data Raw: ", data)
-    # swaps_naive = selection_sort_naive(data)
     swaps = build_heap(data, n)
 
     print(len(swaps))
-    # for i, j in swaps[]:
-    #     print(i, j)
-    # print("Data Sorted: ", data[n-50:])
+    for i, j in swaps:
+        print(i, j)
 
+    # swaps_naive = selection_sort_naive(data)
     # print(len(swaps_naive))
     # for i, j in swaps_naive:
     #     print(i, j)
-    check_answer(data, n)
+    # check_answer(data, n)
 
 if __name__ == "__main__":
     main()
