@@ -53,13 +53,6 @@ class Database:
 
             return
 
-
-
-        # merge two components
-        # use union by rank heuristic
-        # update max_row_count with the new maximum table size
-        return
-
     def get_parent(self, table):
         return self.parents[table]
 
