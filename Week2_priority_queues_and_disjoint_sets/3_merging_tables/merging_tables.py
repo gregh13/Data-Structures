@@ -16,7 +16,10 @@ class Database:
         if src_parent == dst_parent:
             return
 
-        if self.ranks[src_parent] < self.ranks[dst_parent]:
+        src_rank = self.ranks[src_parent]
+        dst_rank = self.ranks[dst_parent]
+
+        if src_rank < dst_rank:
             # "Copy" over rows (i.e. update row count of destination parent)
             self.row_counts[dst_parent] += self.row_counts[src_parent]
 
@@ -27,9 +30,29 @@ class Database:
             self.parents[src_parent] = dst_parent
 
             # Update rank of source parent to reflect it is now just a symlink
-            self.ranks[src_parent] = 0
+            src_rank = 0
 
             return
+
+        else:
+            # "Copy" over rows (i.e. update row count of destination parent)
+            self.row_counts[src_parent] += self.row_counts[dst_parent]
+
+            # "Erase file content" (i.e. change row count to 0 for source parent)
+            self.row_counts[dst_parent] = 0
+
+            # "Create symlink" (i.e. update "pointer" of source parent to destination parent)
+            self.parents[dst_parent] = src_parent
+
+            # Check if same rank before updating dst rank
+            if src_rank == dst_rank:
+                src_rank += 1
+
+            # Update rank of source parent to reflect it is now just a symlink
+            dst_rank = 0
+
+            return
+
 
 
         # merge two components
