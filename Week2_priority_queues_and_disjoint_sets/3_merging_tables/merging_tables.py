@@ -77,6 +77,7 @@ class Database:
         if len(path_to_compress) > 1:
             # Last item in list is already directly connected to root, no need to compress
             for index in path_to_compress[:-1]:
+                # Update parent value to point directly to root parent
                 self.parents[index] = root_parent
 
         return root_parent
