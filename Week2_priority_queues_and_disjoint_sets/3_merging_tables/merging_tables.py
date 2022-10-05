@@ -33,7 +33,7 @@ def main():
     db = Database(counts)
     for i in range(n_queries):
         dst, src = map(int, input().split())
-        db.merge(dst - 1, src - 1)
+        db.merge(src - 1, dst - 1)
         print(db.max_row_count)
 
 
