@@ -97,11 +97,15 @@ def main():
     jobs = list(map(int, input().split()))
     assert len(jobs) == n_jobs
 
-    # assigned_jobs = assign_jobs(n_workers, jobs)
-    assigned_jobs = priority_job_queue(n_workers, jobs)
+    assigned_jobs = assign_jobs(n_workers, jobs)
+    priority_jobs = priority_job_queue(n_workers, jobs)
     for job in assigned_jobs:
         print(job.worker, job.started_at)
 
+    print("---------------")
+
+    for job in priority_jobs:
+        print(job.worker, job.started_at)
 
 if __name__ == "__main__":
     main()
