@@ -54,6 +54,13 @@ class Database:
             return
 
     def get_parent(self, table):
+        path_to_compress = []
+
+        # Loop until root is reached
+        while self.parents[table] != table:
+            path_to_compress.append(table)
+            table = self.parents[table]
+
         return self.parents[table]
 
 
