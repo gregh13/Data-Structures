@@ -3,7 +3,11 @@
 from collections import namedtuple
 
 AssignedJob = namedtuple("AssignedJob", ["worker", "started_at"])
+def left_child(i):
+    return 2*i + 1
 
+def right_child(i):
+    return 2*i + 2
 
 def priority_job_queue(n_workers, jobs):
     def change_priority(job):
@@ -18,7 +22,19 @@ def priority_job_queue(n_workers, jobs):
 
         return
 
-    def sift_down(size):
+    def sift_down(index, size):
+        l_index = left_child(index)
+        r_index = right_child(index)
+        min_rank, min_time = worker_heap[index][0], worker_heap[index][1]
+        l_child_rank, l_child_time = worker_heap[l_index][0], worker_heap[l_index][1]
+        r_child_rank, r_child_time = worker_heap[r_index][0], worker_heap[r_index][1]
+
+        if l_index <= size:
+            pass
+
+        if r_index <= size:
+            pass
+
         pass
 
     result = []
