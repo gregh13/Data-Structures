@@ -10,12 +10,15 @@ class Database:
         self.parents = list(range(n_tables))
 
     def merge(self, src, dst):
+
+        # Find root parents for source and destination tables
         src_parent = self.find_and_compress(src)
         dst_parent = self.find_and_compress(dst)
 
         if src_parent == dst_parent:
             return
 
+        # Store value in variable to use below
         src_rank = self.ranks[src_parent]
         dst_rank = self.ranks[dst_parent]
 
