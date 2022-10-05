@@ -7,8 +7,7 @@ AssignedJob = namedtuple("AssignedJob", ["worker", "started_at"])
 
 def priority_job_queue(n_workers, jobs):
     result = []
-    rank = [i for i in range(n_workers)]
-    worker_heap = [0 for x in range(n_workers)]
+    worker_heap = [[x, 0] for x in range(n_workers)]
 
     for job in jobs:
         pass
