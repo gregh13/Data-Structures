@@ -6,11 +6,21 @@ AssignedJob = namedtuple("AssignedJob", ["worker", "started_at"])
 
 
 def priority_job_queue(n_workers, jobs):
+    def change_priority(job):
+        # Since min heap, next worker will always be the root
+        next_worker = worker_heap[0]
+        pass
+
+    def sift_down(size):
+        pass
+
     result = []
+    size = n_workers - 1
     worker_heap = [[x, 0] for x in range(n_workers)]
 
     for job in jobs:
-        pass
+        change_priority(job)
+        sift_down(size)
 
 
 def assign_jobs(n_workers, jobs):
