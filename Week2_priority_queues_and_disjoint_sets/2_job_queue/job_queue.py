@@ -30,10 +30,22 @@ def priority_job_queue(n_workers, jobs):
         r_child_rank, r_child_time = worker_heap[r_index][0], worker_heap[r_index][1]
 
         if l_index <= size:
-            pass
+            if l_child_time < min_time:
+                # Swap
+                min_time, min_rank = l_child_time, l_child_rank
+
+            elif l_child_time == min_time:
+                # Check rank
+                if l_child_rank < min_rank:
+                    # Swap
+                    min_time, min_rank = l_child_time, l_child_rank
 
         if r_index <= size:
-            pass
+            if r_child_time < min_time:
+                pass
+            elif r_child_time == min_time:
+                # Check rank
+                pass
 
         pass
 
