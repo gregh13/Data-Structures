@@ -22,7 +22,8 @@ def priority_job_queue(n_workers, jobs):
 
         return
 
-    def sift_down(index, size):
+    def sift_down(index):
+        min_index = index
         l_index = left_child(index)
         r_index = right_child(index)
         min_rank, min_time = worker_heap[index][0], worker_heap[index][1]
@@ -32,22 +33,33 @@ def priority_job_queue(n_workers, jobs):
         if l_index <= size:
             if l_child_time < min_time:
                 # Swap
-                min_time, min_rank = l_child_time, l_child_rank
+                min_index, min_time, min_rank = l_index, l_child_time, l_child_rank
 
             elif l_child_time == min_time:
                 # Check rank
                 if l_child_rank < min_rank:
                     # Swap
-                    min_time, min_rank = l_child_time, l_child_rank
+                    min_index, min_time, min_rank = l_index, l_child_time, l_child_rank
 
         if r_index <= size:
             if r_child_time < min_time:
-                pass
+                # Swap
+                min_index, min_time, min_rank = r_index, r_child_time, r_child_rank
+
             elif r_child_time == min_time:
                 # Check rank
-                pass
+                if r_child_rank < min_rank:
+                    # Swap
+                    min_index, min_time, min_rank = r_index, r_child_time, r_child_rank
 
-        pass
+        if min_index != index:
+            # Swap
+            worker_heap[index], worker_heap[min_index] = worker_heap[min_index], worker_heap[index]
+
+            # Sift down again
+            sift_down(min_index)
+
+        return
 
     result = []
     size = n_workers - 1
@@ -55,7 +67,7 @@ def priority_job_queue(n_workers, jobs):
 
     for job in jobs:
         change_priority(job)
-        sift_down(size)
+        sift_down(0)
 
 
 def assign_jobs(n_workers, jobs):
