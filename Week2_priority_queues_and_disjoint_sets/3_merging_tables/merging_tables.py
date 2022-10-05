@@ -16,15 +16,15 @@ class Database:
         if src_parent == dst_parent:
             return
 
-        src_rank, src_row_count = self.ranks[src_parent], self.row_counts[src_parent]
-        dst_rank, dst_row_count = self.ranks[dst_parent], self.row_counts[dst_parent]
+        src_rank = self.ranks[src_parent]
+        dst_rank = self.ranks[dst_parent]
 
         if src_rank < dst_rank:
             # "Copy" over rows (i.e. update row count of destination parent)
-            dst_row_count += src_row_count
+            self.row_counts[dst_parent] += self.row_counts[src_parent]
 
             # "Erase file content" (i.e. change row count to 0 for source parent)
-            src_row_count = 0
+            self.row_counts[src_parent] = 0
 
             # "Create symlink" (i.e. update "pointer" of source parent to destination parent)
             self.parents[src_parent] = dst_parent
@@ -33,15 +33,15 @@ class Database:
             src_rank = 0
 
             # Check if max row count needs to be updated
-            if dst_row_count > self.max_row_count:
-                self.max_row_count = dst_row_count
+            if self.row_counts[dst_parent] > self.max_row_count:
+                self.max_row_count = self.row_counts[dst_parent]
 
         else:
             # "Copy" over rows (i.e. update row count of destination parent)
-            src_row_count += dst_row_count
+            self.row_counts[src_parent] += self.row_counts[dst_parent]
 
             # "Erase file content" (i.e. change row count to 0 for source parent)
-            dst_row_count = 0
+            self.row_counts[dst_parent] = 0
 
             # "Create symlink" (i.e. update "pointer" of source parent to destination parent)
             self.parents[dst_parent] = src_parent
@@ -54,8 +54,8 @@ class Database:
             dst_rank = 0
 
             # Check if max row count needs to be updated
-            if src_row_count > self.max_row_count:
-                self.max_row_count = src_row_count
+            if self.row_counts[src_parent] > self.max_row_count:
+                self.max_row_count = self.row_counts[src_parent]
 
         return
 
