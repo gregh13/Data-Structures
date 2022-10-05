@@ -3,10 +3,13 @@
 
 class Database:
     def __init__(self, row_counts):
+        # Load row input data into attribute, find/store current max, set all table ranks to 1 (since no merges yet)
         self.row_counts = row_counts
         self.max_row_count = max(row_counts)
         n_tables = len(row_counts)
         self.ranks = [1] * n_tables
+
+        # Initialize singleton sets, point to themselves (value == current index)
         self.parents = list(range(n_tables))
 
     def merge(self, src, dst):
