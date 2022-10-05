@@ -14,15 +14,30 @@ class Database:
         dst_parent = self.get_parent(dst)
 
         if src_parent == dst_parent:
-            return False
+            return
+
+        if self.ranks[src_parent] < self.ranks[dst_parent]:
+            # "Copy" over rows (i.e. update row count of destination parent)
+            self.row_counts[dst_parent] += self.row_counts[src_parent]
+
+            # "Erase file content" (i.e. change row count to 0 for source parent)
+            self.row_counts[src_parent] = 0
+
+            # "Create symlink" (i.e. update "pointer" of source parent to destination parent)
+            self.parents[src_parent] = dst_parent
+
+            # Update rank of source parent to reflect it is now just a symlink
+            self.ranks[src_parent] = 0
+
+            return
+
 
         # merge two components
         # use union by rank heuristic
         # update max_row_count with the new maximum table size
-        return True
+        return
 
     def get_parent(self, table):
-        # find parent and compress path
         return self.parents[table]
 
 
