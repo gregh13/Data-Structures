@@ -10,8 +10,8 @@ class Database:
         self.parents = list(range(n_tables))
 
     def merge(self, src, dst):
-        src_parent = self.get_parent(src)
-        dst_parent = self.get_parent(dst)
+        src_parent = self.find_and_compress(src)
+        dst_parent = self.find_and_compress(dst)
 
         if src_parent == dst_parent:
             return
@@ -53,7 +53,7 @@ class Database:
 
             return
 
-    def get_parent(self, table):
+    def find_and_compress(self, table):
         path_to_compress = []
 
         # Loop until root is reached
