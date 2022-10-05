@@ -3,11 +3,15 @@
 from collections import namedtuple
 
 AssignedJob = namedtuple("AssignedJob", ["worker", "started_at"])
+
+
 def left_child(i):
     return 2*i + 1
 
+
 def right_child(i):
     return 2*i + 2
+
 
 def priority_job_queue(n_workers, jobs):
     def change_priority(job):
@@ -23,14 +27,16 @@ def priority_job_queue(n_workers, jobs):
         return
 
     def sift_down(index):
+
         min_index = index
+        min_rank, min_time = worker_heap[index][0], worker_heap[index][1]
+
         l_index = left_child(index)
         r_index = right_child(index)
-        min_rank, min_time = worker_heap[index][0], worker_heap[index][1]
-        l_child_rank, l_child_time = worker_heap[l_index][0], worker_heap[l_index][1]
-        r_child_rank, r_child_time = worker_heap[r_index][0], worker_heap[r_index][1]
 
+        # Check if child exists
         if l_index <= size:
+            l_child_rank, l_child_time = worker_heap[l_index][0], worker_heap[l_index][1]
             if l_child_time < min_time:
                 # Swap
                 min_index, min_time, min_rank = l_index, l_child_time, l_child_rank
@@ -41,7 +47,9 @@ def priority_job_queue(n_workers, jobs):
                     # Swap
                     min_index, min_time, min_rank = l_index, l_child_time, l_child_rank
 
+        # Check if child exists
         if r_index <= size:
+            r_child_rank, r_child_time = worker_heap[r_index][0], worker_heap[r_index][1]
             if r_child_time < min_time:
                 # Swap
                 min_index, min_time, min_rank = r_index, r_child_time, r_child_rank
@@ -69,6 +77,8 @@ def priority_job_queue(n_workers, jobs):
         change_priority(job)
         sift_down(0)
 
+    return result
+
 
 def assign_jobs(n_workers, jobs):
     # TODO: replace this code with a faster algorithm.
@@ -87,8 +97,8 @@ def main():
     jobs = list(map(int, input().split()))
     assert len(jobs) == n_jobs
 
-    assigned_jobs = assign_jobs(n_workers, jobs)
-
+    # assigned_jobs = assign_jobs(n_workers, jobs)
+    assigned_jobs = priority_job_queue(n_workers, jobs)
     for job in assigned_jobs:
         print(job.worker, job.started_at)
 
