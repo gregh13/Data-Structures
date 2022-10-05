@@ -32,7 +32,9 @@ class Database:
             # Update rank of source parent to reflect it is now just a symlink
             src_rank = 0
 
-            return
+            # Check if max row count needs to be updated
+            if self.row_counts[dst_parent] > self.max_row_count:
+                self.max_row_count = self.row_counts[dst_parent]
 
         else:
             # "Copy" over rows (i.e. update row count of destination parent)
@@ -51,7 +53,11 @@ class Database:
             # Update rank of source parent to reflect it is now just a symlink
             dst_rank = 0
 
-            return
+            # Check if max row count needs to be updated
+            if self.row_counts[src_parent] > self.max_row_count:
+                self.max_row_count = self.row_counts[src_parent]
+
+        return
 
     def find_and_compress(self, table):
         path_to_compress = []
