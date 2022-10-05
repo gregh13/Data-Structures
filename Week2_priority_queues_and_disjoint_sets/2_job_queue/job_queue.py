@@ -9,7 +9,14 @@ def priority_job_queue(n_workers, jobs):
     def change_priority(job):
         # Since min heap, next worker will always be the root
         next_worker = worker_heap[0]
-        pass
+
+        # Add worker index and start time to results
+        result.append(AssignedJob(next_worker[0], next_worker[1]))
+
+        # Add job to worker thread
+        next_worker[1] += job
+
+        return
 
     def sift_down(size):
         pass
