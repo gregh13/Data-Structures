@@ -61,7 +61,16 @@ class Database:
             path_to_compress.append(table)
             table = self.parents[table]
 
-        return self.parents[table]
+        # For increased readability, save last table value into a properly named variable
+        root_parent = table
+
+        # Depth needs to be at least 2, otherwise nothing to compress
+        if len(path_to_compress) > 1:
+            # Last item in list is already directly connected to root, no need to compress
+            for index in path_to_compress[:-1]:
+                self.parents[index] = root_parent
+
+        return root_parent
 
 
 def main():
