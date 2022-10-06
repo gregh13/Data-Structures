@@ -33,6 +33,19 @@ def direct_addressing(queries):
     results = []
     phone_book = [None] * (assignment_max)
 
+    for query in queries:
+        if query.type == "add":
+            phone_book[query.number] = query.name
+        elif query.type == "find":
+            if phone_book[query.number] is None:
+                message = "not found"
+                results.append(message)
+            else:
+                results.append(phone_book[query.number])
+        elif query.type == "del":
+            phone_book[query.number] = None
+
+    return results
 
 
 
