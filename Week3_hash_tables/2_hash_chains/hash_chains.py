@@ -37,23 +37,37 @@ def hash_table_solution():
     for i in range(n):
         query = Query(input().split())
         if query.type == "check":
+            # Get list located at hash table query index
             check_list = hash_table[query.ind]
+
             # Assignment grader wants list printed in FIFO order
             write_chain(reversed(check_list))
         else:
+            # Initialize variable
             found = False
+
+            # Call hash function to calc hash value of query string
             hash_val = _hash_func(query.s, bucket_count)
+
+            # Grab list located at hash value
             hashed_list = hash_table[hash_val]
+
+            # Search list to see if query is there
             if query.s in hashed_list:
                 found = True
+
+            # Add query only if not found (no duplicates)
             if query.type == "add":
                 if not found:
                     hash_table[hash_val].append(query.s)
-            if query.type == "find":
+            # Print feedback on whether query is in list
+            elif query.type == "find":
                 if found:
                     print("yes")
                 else:
                     print("no")
+
+            # Delete query only if it in list
             elif query.type == "del":
                 if found:
                     hashed_list.remove(query.s)
@@ -106,6 +120,7 @@ class QueryProcessorNaive:
         n = int(input())
         for i in range(n):
             self.process_query(self.read_query())
+
 
 if __name__ == '__main__':
     # bucket_count = int(input())
