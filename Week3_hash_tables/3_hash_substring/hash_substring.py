@@ -1,8 +1,23 @@
 
+
+def hash_function(string):
+    _multiplier = 263
+    _prime = 1000000007
+    ans = 0
+    for c in reversed(string):
+        ans = (ans * _multiplier + ord(c)) % _prime
+    return ans % buckets
+
+
 def hashing_solution(pattern, text):
     text_len = len(text)
     pattern_len = len(pattern)
-    hashes = [None] * (text_len - pattern_len)
+    t_minus_p = text_len - pattern_len
+
+    hashes = [None] * t_minus_p
+    hashes[(t_minus_p - 1)] = 0
+
+
 
 
 
