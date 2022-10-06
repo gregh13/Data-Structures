@@ -10,6 +10,15 @@ class Query:
             self.s = query[1]
 
 
+def dictionary_solution():
+    n = int(input())
+    for i in range(n):
+        (Query(input().split()))
+
+
+
+
+
 class QueryProcessor:
     _multiplier = 263
     _prime = 1000000007
@@ -62,3 +71,4 @@ if __name__ == '__main__':
     bucket_count = int(input())
     proc = QueryProcessor(bucket_count)
     proc.process_queries()
+
