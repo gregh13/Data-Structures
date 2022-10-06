@@ -24,15 +24,21 @@ def write_chain(chain):
 
 
 def hash_table_solution():
-
+    # Get number of buckets input
     bucket_count = int(input())
+
+    # Initialize hash table 2d array to bucket length
     hash_table = [[] for _ in range(bucket_count)]
 
+    # Get number of queries that will be performed
     n = int(input())
+
+    # Loop through number of queries, perform each query action before accepting next query
     for i in range(n):
         query = Query(input().split())
         if query.type == "check":
             check_list = hash_table[query.ind]
+            # Assignment grader wants list printed in FIFO order
             write_chain(reversed(check_list))
         else:
             found = False
