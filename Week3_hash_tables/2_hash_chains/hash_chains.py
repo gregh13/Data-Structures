@@ -1,5 +1,3 @@
-# python3
-
 class Query:
 
     def __init__(self, query):
@@ -60,6 +58,7 @@ def hash_table_solution():
             if query.type == "add":
                 if not found:
                     hash_table[hash_val].append(query.s)
+
             # Print feedback on whether query is in list
             elif query.type == "find":
                 if found:
