@@ -10,10 +10,25 @@ class Query:
             self.s = query[1]
 
 
+def _hash_func(string, buckets):
+    _multiplier = 263
+    _prime = 1000000007
+    ans = 0
+    for c in reversed(string):
+        ans = (ans * _multiplier + ord(c)) % _prime
+    return ans % buckets
+
+
 def dictionary_solution():
+
+    bucket_count = int(input())
+    string_dict = {x: [] for x in range(bucket_count)}
+
     n = int(input())
     for i in range(n):
         (Query(input().split()))
+
+
 
 
 
@@ -68,7 +83,8 @@ class QueryProcessor:
             self.process_query(self.read_query())
 
 if __name__ == '__main__':
-    bucket_count = int(input())
-    proc = QueryProcessor(bucket_count)
-    proc.process_queries()
+    # bucket_count = int(input())
+    # proc = QueryProcessor(bucket_count)
+    # proc.process_queries()
+    dictionary_solution()
 
