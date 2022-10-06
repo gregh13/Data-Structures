@@ -37,7 +37,22 @@ def dictionary_solution():
         elif query.type == "add":
             hash_val = _hash_func(query.s, bucket_count)
             string_dict[hash_val].append(query.s)
-        elif query.type == "find":
+        else:
+            found = False
+            hash_val = _hash_func(query.s, bucket_count)
+            hashed_list = string_dict[hash_val]
+            if query.s in hashed_list:
+                found = True
+            if query.type == "find":
+                if found:
+                    print("yes")
+                else:
+                    print("no")
+            elif query.type == "del":
+                if found:
+                    hashed_list.remove(query.s)
+
+
 
 
 
