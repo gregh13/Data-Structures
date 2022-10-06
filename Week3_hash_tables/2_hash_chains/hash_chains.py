@@ -30,7 +30,15 @@ def dictionary_solution():
 
     n = int(input())
     for i in range(n):
-        (Query(input().split()))
+        query = Query(input().split())
+        if query.type == "check":
+            check_list = string_dict[query.ind]
+            write_chain(reversed(check_list))
+        elif query.type == "add":
+            hash_val = _hash_func(query.s, bucket_count)
+            string_dict[hash_val].append(query.s)
+        elif query.type == "find":
+
 
 
 
