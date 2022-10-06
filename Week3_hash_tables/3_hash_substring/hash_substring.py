@@ -1,4 +1,4 @@
-
+import random
 
 def hash_function(string, multiplier, prime):
     ans = 0
@@ -15,15 +15,16 @@ def hashing_solution(pattern, text):
     hashes = [None] * (t_minus_p + 1)
     match_positions = []
 
-    prime_list = [3_010_349, 1_000_000_007, 1_000_000_000_193,
+    prime_list = [2_207, 3_010_349, 1_000_000_007, 1_000_000_000_193,
                   2_305_843_009_213_693_951, 618_970_019_642_690_137_449_562_111]
     prime = prime_list[0]
-    multiplier = 263
 
     counter = 1
     while text_len * pattern_len > prime and counter < len(prime_list):
         prime = prime_list[counter]
         counter += 1
+
+    multiplier = random.randint(1, prime - 1)
 
     pattern_hash = hash_function(pattern, multiplier, prime)
     hashes[(t_minus_p)] = hash_function(text[t_minus_p:], multiplier, prime)
@@ -35,7 +36,7 @@ def hashing_solution(pattern, text):
     for i in range((t_minus_p-1), -1, -1):
         hashes[i] = ((multiplier * hashes[i+1]) + ord(text[i]) - (y * ord(text[i + pattern_len]))) % prime
 
-    for j in range(t_minus_p):
+    for j in range(t_minus_p+1):
         if hashes[j] != pattern_hash:
             continue
         if pattern == text[j:(j+pattern_len)]:
