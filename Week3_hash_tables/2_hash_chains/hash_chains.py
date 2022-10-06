@@ -34,15 +34,15 @@ def dictionary_solution():
         if query.type == "check":
             check_list = string_dict[query.ind]
             write_chain(reversed(check_list))
-        elif query.type == "add":
-            hash_val = _hash_func(query.s, bucket_count)
-            string_dict[hash_val].append(query.s)
         else:
             found = False
             hash_val = _hash_func(query.s, bucket_count)
             hashed_list = string_dict[hash_val]
             if query.s in hashed_list:
                 found = True
+            if query.type == "add":
+                if not found:
+                    string_dict[hash_val].append(query.s)
             if query.type == "find":
                 if found:
                     print("yes")
