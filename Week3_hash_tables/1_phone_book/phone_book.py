@@ -28,6 +28,17 @@ def phone_book_dict(queries):
     return results
 
 
+def direct_addressing(queries):
+    assignment_max = (10 ** 5) + 1
+    results = []
+    phone_book = [None] * (assignment_max)
+
+
+
+
+
+
+
 def read_queries():
     n = int(input())
     return [Query(input().split()) for i in range(n)]
