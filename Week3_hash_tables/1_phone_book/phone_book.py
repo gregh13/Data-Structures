@@ -14,7 +14,7 @@ def phone_book_dict(queries):
 
     for query in queries:
         if query.type == "add":
-            phone_dict[query.name] = query.number
+            phone_dict[query.number] = query.name
         elif query.type == "find":
             if query.number in phone_dict:
                 results.append(phone_dict[query.number])
