@@ -19,6 +19,10 @@ def _hash_func(string, buckets):
     return ans % buckets
 
 
+def write_chain(chain):
+    print(' '.join(chain))
+
+
 def dictionary_solution():
 
     bucket_count = int(input())
