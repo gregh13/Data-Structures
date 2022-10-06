@@ -22,12 +22,10 @@ def phone_book_dict(queries):
                 message = "not found"
                 results.append(message)
         elif query.type == "del":
+            if query.number in phone_dict:
+                del phone_dict[query.number]
 
-
-
-
-
-
+    return results
 
 
 def read_queries():
@@ -69,5 +67,6 @@ def process_queries_naive(queries):
 
 
 if __name__ == '__main__':
-    write_responses(process_queries_naive(read_queries()))
+    # write_responses(process_queries_naive(read_queries()))
+    write_responses(phone_book_dict(read_queries()))
 
