@@ -8,6 +8,28 @@ class Query:
             self.name = query[2]
 
 
+def phone_book_dict(queries):
+    results = []
+    phone_dict = {}
+
+    for query in queries:
+        if query.type == "add":
+            phone_dict[query.name] = query.number
+        elif query.type == "find":
+            if query.number in phone_dict:
+                results.append(phone_dict[query.number])
+            else:
+                message = "not found"
+                results.append(message)
+        elif query.type == "del":
+
+
+
+
+
+
+
+
 def read_queries():
     n = int(input())
     return [Query(input().split()) for i in range(n)]
