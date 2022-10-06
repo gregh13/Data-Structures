@@ -4,7 +4,7 @@ def hash_function(string, multiplier, prime):
     ans = 0
     for c in reversed(string):
         ans = (ans * multiplier + ord(c)) % prime
-    return ans % buckets
+    return ans
 
 
 def hashing_solution(pattern, text):
@@ -15,7 +15,8 @@ def hashing_solution(pattern, text):
     hashes = [None] * t_minus_p
     match_positions = []
 
-    prime_list = [3_010_349, 1_000_000_007, 1_000_000_000_193, 2_305_843_009_213_693_951, 618_970_019_642_690_137_449_562_111]
+    prime_list = [3_010_349, 1_000_000_007, 1_000_000_000_193,
+                  2_305_843_009_213_693_951, 618_970_019_642_690_137_449_562_111]
     prime = prime_list[0]
     multiplier = 263
 
@@ -29,7 +30,7 @@ def hashing_solution(pattern, text):
 
     y = 0
     for _ in range(pattern_len):
-        y = (y * multiplier) mod prime
+        y = (y * multiplier) % prime
 
     for i in range((t_minus_p-1), -1, -1):
 
