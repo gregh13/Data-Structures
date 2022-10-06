@@ -14,6 +14,7 @@ def phone_book_dict(queries):
 
     for query in queries:
         if query.type == "add":
+            # Adds or updates key and value
             phone_dict[query.number] = query.name
         elif query.type == "find":
             if query.number in phone_dict:
@@ -31,6 +32,8 @@ def phone_book_dict(queries):
 def direct_addressing(queries):
     assignment_max = (10 ** 7) + 1
     results = []
+    # Initialize array with one index value for every possible phone number per assignment max number values
+    # Note this is potentially a huge waste of space
     phone_book = [None] * (assignment_max)
 
     for query in queries:
@@ -88,6 +91,6 @@ def process_queries_naive(queries):
 
 if __name__ == '__main__':
     # write_responses(process_queries_naive(read_queries()))
-    # write_responses(phone_book_dict(read_queries()))
-    write_responses(direct_addressing(read_queries()))
+    # write_responses(direct_addressing(read_queries()))
+    write_responses(phone_book_dict(read_queries()))
 
