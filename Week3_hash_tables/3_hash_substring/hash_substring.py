@@ -1,3 +1,16 @@
+
+def hashing_solution(pattern, text):
+    text_len = len(text)
+    pattern_len = len(pattern)
+    hashes = [None] * (text_len - pattern_len)
+
+
+
+    pass
+
+
+
+
 def read_input():
     return input().rstrip(), input().rstrip()
 
