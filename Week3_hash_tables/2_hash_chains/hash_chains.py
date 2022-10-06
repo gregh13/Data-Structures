@@ -23,26 +23,26 @@ def write_chain(chain):
     print(' '.join(chain))
 
 
-def dictionary_solution():
+def hash_table_solution():
 
     bucket_count = int(input())
-    string_dict = {x: [] for x in range(bucket_count)}
+    hash_table = [[] for _ in range(bucket_count)]
 
     n = int(input())
     for i in range(n):
         query = Query(input().split())
         if query.type == "check":
-            check_list = string_dict[query.ind]
+            check_list = hash_table[query.ind]
             write_chain(reversed(check_list))
         else:
             found = False
             hash_val = _hash_func(query.s, bucket_count)
-            hashed_list = string_dict[hash_val]
+            hashed_list = hash_table[hash_val]
             if query.s in hashed_list:
                 found = True
             if query.type == "add":
                 if not found:
-                    string_dict[hash_val].append(query.s)
+                    hash_table[hash_val].append(query.s)
             if query.type == "find":
                 if found:
                     print("yes")
@@ -53,15 +53,7 @@ def dictionary_solution():
                     hashed_list.remove(query.s)
 
 
-
-
-
-
-
-
-
-
-class QueryProcessor:
+class QueryProcessorNaive:
     _multiplier = 263
     _prime = 1000000007
 
@@ -113,5 +105,5 @@ if __name__ == '__main__':
     # bucket_count = int(input())
     # proc = QueryProcessor(bucket_count)
     # proc.process_queries()
-    dictionary_solution()
+    hash_table_solution()
 
