@@ -12,7 +12,7 @@ def hashing_solution(pattern, text):
     pattern_len = len(pattern)
     t_minus_p = text_len - pattern_len
 
-    hashes = [None] * t_minus_p
+    hashes = [] * t_minus_p
     match_positions = []
 
     prime_list = [3_010_349, 1_000_000_007, 1_000_000_000_193,
@@ -32,13 +32,11 @@ def hashing_solution(pattern, text):
     for _ in range(pattern_len):
         y = (y * multiplier) % prime
 
-    for i in range((t_minus_p-1), -1, -1):
+    for i in range((t_minus_p-2), -1, -1):
+        hashes[i] = ((multiplier * hashes[i+1]) + text[i] - (y * text[i + pattern_len])) % prime
 
 
 
-
-
-    pass
 
 
 
