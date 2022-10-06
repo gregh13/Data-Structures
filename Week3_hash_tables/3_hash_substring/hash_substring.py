@@ -35,6 +35,14 @@ def hashing_solution(pattern, text):
     for i in range((t_minus_p-2), -1, -1):
         hashes[i] = ((multiplier * hashes[i+1]) + text[i] - (y * text[i + pattern_len])) % prime
 
+    for j in range(t_minus_p):
+        if hashes[j] != pattern_hash:
+            continue
+        if pattern == text[j:(j+pattern_len)]:
+            match_positions.append(j)
+
+    return match_positions
+
 
 
 
