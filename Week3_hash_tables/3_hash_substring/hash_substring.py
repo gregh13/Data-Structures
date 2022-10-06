@@ -12,7 +12,7 @@ def hashing_solution(pattern, text):
     pattern_len = len(pattern)
     t_minus_p = text_len - pattern_len
 
-    hashes = [] * t_minus_p
+    hashes = [None] * t_minus_p
     match_positions = []
 
     prime_list = [3_010_349, 1_000_000_007, 1_000_000_000_193,
@@ -33,7 +33,7 @@ def hashing_solution(pattern, text):
         y = (y * multiplier) % prime
 
     for i in range((t_minus_p-2), -1, -1):
-        hashes[i] = ((multiplier * hashes[i+1]) + text[i] - (y * text[i + pattern_len])) % prime
+        hashes[i] = ((multiplier * hashes[i+1]) + ord(text[i]) - (y * ord(text[i + pattern_len]))) % prime
 
     for j in range(t_minus_p):
         if hashes[j] != pattern_hash:
@@ -42,11 +42,6 @@ def hashing_solution(pattern, text):
             match_positions.append(j)
 
     return match_positions
-
-
-
-
-
 
 
 def read_input():
@@ -66,5 +61,6 @@ def get_occurrences_naive(pattern, text):
 
 
 if __name__ == '__main__':
-    print_occurrences(get_occurrences_naive(*read_input()))
+    # print_occurrences(get_occurrences_naive(*read_input()))
+    print_occurrences(hashing_solution(*read_input()))
 
