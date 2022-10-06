@@ -28,7 +28,7 @@ def hashing_solution(pattern, text):
     pattern_hash = hash_function(pattern, multiplier, prime)
     hashes[(t_minus_p - 1)] = hash_function(text[t_minus_p:], multiplier, prime)
 
-    y = 0
+    y = 1
     for _ in range(pattern_len):
         y = (y * multiplier) % prime
 
