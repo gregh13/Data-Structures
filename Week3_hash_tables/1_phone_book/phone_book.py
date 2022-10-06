@@ -29,7 +29,7 @@ def phone_book_dict(queries):
 
 
 def direct_addressing(queries):
-    assignment_max = (10 ** 5) + 1
+    assignment_max = (10 ** 7) + 1
     results = []
     phone_book = [None] * (assignment_max)
 
@@ -46,10 +46,6 @@ def direct_addressing(queries):
             phone_book[query.number] = None
 
     return results
-
-
-
-
 
 
 def read_queries():
@@ -92,5 +88,6 @@ def process_queries_naive(queries):
 
 if __name__ == '__main__':
     # write_responses(process_queries_naive(read_queries()))
-    write_responses(phone_book_dict(read_queries()))
+    # write_responses(phone_book_dict(read_queries()))
+    write_responses(direct_addressing(read_queries()))
 
