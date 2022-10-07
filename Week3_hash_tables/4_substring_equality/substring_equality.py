@@ -1,12 +1,13 @@
-# python3
-
 import sys
+
 
 class Solver:
 	def __init__(self, s):
 		self.s = s
+
 	def ask(self, a, b, l):
 		return s[a:a+l] == s[b:b+l]
+
 
 s = sys.stdin.readline()
 q = int(sys.stdin.readline())
