@@ -5,10 +5,10 @@ import random
 class HashSolution:
 	def __init__(self, string):
 		self.string = string
-		self.s_len = len(string)
+		self.string_len = len(string)
 
-		self.hash_table_1 = [0] * self.s_len
-		self.hash_table_2 = [0] * self.s_len
+		self.hash_table_1 = [0] * self.string_len
+		self.hash_table_2 = [0] * self.string_len
 
 		self.power = 10 ** 9
 		self.mod_1 = self.power + 7
@@ -22,16 +22,19 @@ class HashSolution:
 	def query_input(self, a_i, b_i, length):
 		self.a_index = a_i
 		self.b_index = b_i
-		self.sub_length = length
+		self.sub_len = length
 
-	def calc_substring_hash(self, hash_table, index, prime):
-		hash_val = hash_table[index + self.sub_length] - ((self.x * self.sub_length) * hash_table[index]) % prime
-		return hash_val
+	def calc_substring_hash(self, hash_table, prime):
+		a_hash = hash_table[self.a_index + self.sub_len] - ((self.x * self.sub_len) * hash_table[self.a_index]) % prime
+		b_hash = hash_table[self.b_index + self.sub_len] - ((self.x * self.sub_len) * hash_table[self.b_index]) % prime
+		return a_hash, b_hash
 
 	def precompute_hashes(self, mod1, mod2):
-		for i in range(1, self.s_len):
+		for i in range(1, self.string_len):
 			self.hash_table_1[i] = (self.x * self.hash_table_1[i-1] + ord(self.string[i])) % mod1
 			self.hash_table_2[i] = (self.x * self.hash_table_2[i-1] + ord(self.string[i])) % mod2
+
+
 
 
 
@@ -49,6 +52,6 @@ class SolverNaive:
 s = sys.stdin.readline()
 q = int(sys.stdin.readline())
 solver = SolverNaive(s)
-for i in range(q):
+for _ in range(q):
 	a, b, l = map(int, sys.stdin.readline().split())
 	print("Yes" if solver.ask(a, b, l) else "No")
