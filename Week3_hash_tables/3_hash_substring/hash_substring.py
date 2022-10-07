@@ -28,19 +28,26 @@ def hashing_solution(pattern, text):
     prime = prime_list[0]
     counter = 1
 
+    # Makes sure prime number is sufficiently large for the given input sizes
     while 5 * text_len * pattern_len > prime and counter < len(prime_list):
         prime = prime_list[counter]
         counter += 1
 
+    # Randomize hash multiplier based on final prime value
     multiplier = random.randint(1, prime - 1)
 
+    # Calculate the input pattern hash
     pattern_hash = hash_function(pattern, multiplier, prime)
+
+    # Calculate last substring hash, used to calculate rest of text hashes
     hashes[t_minus_p] = hash_function(text[t_minus_p:], multiplier, prime)
 
+    # Initialize coefficient value to 1, then calc for pattern
     y = 1
     for _ in range(pattern_len):
         y = (y * multiplier) % prime
 
+    # Calculate all remaining possible hashes for the text in reverse order, using rabin-karp trick
     for i in range((t_minus_p-1), -1, -1):
         hashes[i] = ((multiplier * hashes[i+1]) + ord(text[i]) - (y * ord(text[i + pattern_len]))) % prime
 
