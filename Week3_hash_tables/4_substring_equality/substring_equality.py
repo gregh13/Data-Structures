@@ -64,13 +64,15 @@ class SolverNaive:
 
 s = sys.stdin.readline()
 q = int(sys.stdin.readline())
-# solver = SolverNaive(s)
-# for _ in range(q):
-# 	a, b, l = map(int, sys.stdin.readline().split())
-# 	print("Yes" if solver.ask(a, b, l) else "No")
 
 hashbrowns = HashSolution(s)
 for _ in range(q):
-	hashbrowns.query_input(map(int, sys.stdin.readline().split()))
+	a, b, l = map(int, sys.stdin.readline().split())
+	hashbrowns.query_input(a, b, l)
 	hashbrowns.check_substrings()
+
+# naive_solver = SolverNaive(s)
+# for _ in range(q):
+# 	a, b, l = map(int, sys.stdin.readline().split())
+# 	print("Yes" if naive_solver.ask(a, b, l) else "No")
 
