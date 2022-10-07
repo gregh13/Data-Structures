@@ -21,6 +21,11 @@ class HashSolution:
 
 		self.precompute_hashes()
 
+	def precompute_hashes(self):
+		for i in range(1, self.string_len):
+			self.hash_table_1[i] = (self.x * self.hash_table_1[i-1] + ord(self.string[i])) % self.mod_1
+			self.hash_table_2[i] = (self.x * self.hash_table_2[i-1] + ord(self.string[i])) % self.mod_2
+
 	def query_input(self, a_i, b_i, length):
 		self.a_index = a_i
 		self.b_index = b_i
@@ -29,14 +34,17 @@ class HashSolution:
 	def calc_substring_hash(self, hash_table, prime):
 		a_hash = hash_table[self.a_index + self.sub_len] - ((self.x * self.sub_len) * hash_table[self.a_index]) % prime
 		b_hash = hash_table[self.b_index + self.sub_len] - ((self.x * self.sub_len) * hash_table[self.b_index]) % prime
-		return a_hash, b_hash
-
-	def precompute_hashes(self):
-		for i in range(1, self.string_len):
-			self.hash_table_1[i] = (self.x * self.hash_table_1[i-1] + ord(self.string[i])) % self.mod_1
-			self.hash_table_2[i] = (self.x * self.hash_table_2[i-1] + ord(self.string[i])) % self.mod_2
+		return a_hash == b_hash
 
 	def check_substrings(self):
+		if self.calc_substring_hash(self.hash_table_1, self.mod_1):
+			if self.calc_substring_hash(self.hash_table_2, self.mod_2):
+				print("Yes")
+			else:
+				print("No")
+		else:
+			print("No")
+
 
 
 
