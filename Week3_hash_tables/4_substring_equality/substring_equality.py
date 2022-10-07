@@ -24,8 +24,11 @@ class HashSolution:
 			hash = (hash * x + ord(char)) % prime
 		return hash
 
-	def precompute_hashes(self, ):
+	def precompute_hashes(self, mod1, mod2):
 		for i in range(1, self.s_len):
+			self.hash_table_1[i] = (self.x * self.hash_table_1[i-1] + ord(self.string[i])) % mod1
+			self.hash_table_2[i] = (self.x * self.hash_table_2[i-1] + ord(self.string[i])) % mod2
+
 
 
 
