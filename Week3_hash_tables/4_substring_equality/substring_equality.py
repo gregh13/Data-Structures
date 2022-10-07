@@ -34,6 +34,9 @@ class HashSolution:
 	def calc_substring_hash(self, hash_table, prime):
 		a_hash = hash_table[self.a_index + self.sub_len] - ((self.x * self.sub_len) * hash_table[self.a_index]) % prime
 		b_hash = hash_table[self.b_index + self.sub_len] - ((self.x * self.sub_len) * hash_table[self.b_index]) % prime
+
+		a_hash = (a_hash + prime) % prime
+		b_hash = (b_hash + prime) % prime
 		return a_hash == b_hash
 
 	def check_substrings(self):
