@@ -1,4 +1,5 @@
 import sys
+import random
 
 
 class HashSolution:
@@ -7,8 +8,10 @@ class HashSolution:
 		self.s_len = len(string)
 		self.hash_table_1 = [0] * self.s_len
 		self.hash_table_2 = [0] * self.s_len
-		self.mod_1 = (10**9) + 7
-		self.mod_2 = (10**9) + 9
+		self.power = 10 ** 9
+		self.mod_1 = self.power + 7
+		self.mod_2 = self.power + 9
+		self.x = random.randint(1, self.power - 1)
 
 	def query_input(self, a, b, length):
 		self.a = a
