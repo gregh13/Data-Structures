@@ -19,15 +19,14 @@ class HashSolution:
 		self.b_index = -1
 		self.sub_length = -1
 
-	def query_input(self, a, b, length):
-		self.a_index = a
-		self.b_index = b
+	def query_input(self, a_i, b_i, length):
+		self.a_index = a_i
+		self.b_index = b_i
 		self.sub_length = length
 
-	def calc_substring_hash(self, hash_table, index):
-		hash = 0
-		hash = hash_table[index + self.l]
-		return hash
+	def calc_substring_hash(self, hash_table, index, prime):
+		hash_val = hash_table[index + self.sub_length] - ((self.x * self.sub_length) * hash_table[index]) % prime
+		return hash_val
 
 	def precompute_hashes(self, mod1, mod2):
 		for i in range(1, self.s_len):
