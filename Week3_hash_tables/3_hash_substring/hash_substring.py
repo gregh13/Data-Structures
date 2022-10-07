@@ -48,12 +48,18 @@ def hashing_solution(pattern, text):
         y = (y * multiplier) % prime
 
     # Calculate all remaining possible hashes for the text in reverse order, using rabin-karp trick
+    # This loop computes all hash values of length pattern in the text to use for quick comparison with pattern hash
     for i in range((t_minus_p-1), -1, -1):
         hashes[i] = ((multiplier * hashes[i+1]) + ord(text[i]) - (y * ord(text[i + pattern_len]))) % prime
 
+    # Compare precomputed text hashes with pattern hash.
     for j in range(t_minus_p+1):
+
+        # If hashes don't match, substrings don't match
         if hashes[j] != pattern_hash:
             continue
+
+        # If hashes match, need to check for collision cases (i.e. make sure strings are actually equal)
         if pattern == text[j:(j+pattern_len)]:
             match_positions.append(j)
 
