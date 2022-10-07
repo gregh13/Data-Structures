@@ -17,7 +17,9 @@ class HashSolution:
 
 		self.a_index = -1
 		self.b_index = -1
-		self.sub_length = -1
+		self.sub_len = -1
+
+		self.precompute_hashes()
 
 	def query_input(self, a_i, b_i, length):
 		self.a_index = a_i
@@ -29,10 +31,13 @@ class HashSolution:
 		b_hash = hash_table[self.b_index + self.sub_len] - ((self.x * self.sub_len) * hash_table[self.b_index]) % prime
 		return a_hash, b_hash
 
-	def precompute_hashes(self, mod1, mod2):
+	def precompute_hashes(self):
 		for i in range(1, self.string_len):
-			self.hash_table_1[i] = (self.x * self.hash_table_1[i-1] + ord(self.string[i])) % mod1
-			self.hash_table_2[i] = (self.x * self.hash_table_2[i-1] + ord(self.string[i])) % mod2
+			self.hash_table_1[i] = (self.x * self.hash_table_1[i-1] + ord(self.string[i])) % self.mod_1
+			self.hash_table_2[i] = (self.x * self.hash_table_2[i-1] + ord(self.string[i])) % self.mod_2
+
+	def check_substrings(self):
+
 
 
 
@@ -51,7 +56,13 @@ class SolverNaive:
 
 s = sys.stdin.readline()
 q = int(sys.stdin.readline())
-solver = SolverNaive(s)
+# solver = SolverNaive(s)
+# for _ in range(q):
+# 	a, b, l = map(int, sys.stdin.readline().split())
+# 	print("Yes" if solver.ask(a, b, l) else "No")
+
+hashbrowns = HashSolution(s)
 for _ in range(q):
-	a, b, l = map(int, sys.stdin.readline().split())
-	print("Yes" if solver.ask(a, b, l) else "No")
+	hashbrowns.query_input(map(int, sys.stdin.readline().split()))
+	hashbrowns.check_substrings()
+
