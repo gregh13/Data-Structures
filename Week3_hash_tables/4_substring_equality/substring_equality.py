@@ -6,22 +6,27 @@ class HashSolution:
 	def __init__(self, string):
 		self.string = string
 		self.s_len = len(string)
+
 		self.hash_table_1 = [0] * self.s_len
 		self.hash_table_2 = [0] * self.s_len
+
 		self.power = 10 ** 9
 		self.mod_1 = self.power + 7
 		self.mod_2 = self.power + 9
 		self.x = random.randint(1, self.power - 1)
 
-	def query_input(self, a, b, length):
-		self.a = a
-		self.b = b
-		self.l = length
+		self.a_index = -1
+		self.b_index = -1
+		self.sub_length = -1
 
-	def hash_func(self, substring, x, prime):
+	def query_input(self, a, b, length):
+		self.a_index = a
+		self.b_index = b
+		self.sub_length = length
+
+	def calc_substring_hash(self, hash_table, index):
 		hash = 0
-		for char in reversed(substring):
-			hash = (hash * x + ord(char)) % prime
+		hash = hash_table[index + self.l]
 		return hash
 
 	def precompute_hashes(self, mod1, mod2):
