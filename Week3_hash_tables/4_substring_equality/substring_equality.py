@@ -7,21 +7,26 @@ class HashSolution:
 		self.string = string
 		self.string_len = len(string) + 1
 
+		# Initialize hash tables
 		self.hash_table_1 = [0] * self.string_len
 		self.hash_table_2 = [0] * self.string_len
 
+		# Initialize coef tables
 		self.coef_table_1 = [1] * self.string_len
 		self.coef_table_2 = [1] * self.string_len
 
+		# Initialize modulo primes and multiplier x
 		self.power = 10 ** 9
 		self.mod_1 = self.power + 7
 		self.mod_2 = self.power + 9
 		self.x = random.randint(1, self.power - 1)
 
+		# Initialize blank query inputs
 		self.a_index = -1
 		self.b_index = -1
 		self.sub_len = -1
 
+		# Precompute string hashes and coefficients for both modulos
 		self.precompute_hashes_coefs()
 
 	def precompute_hashes_coefs(self):
