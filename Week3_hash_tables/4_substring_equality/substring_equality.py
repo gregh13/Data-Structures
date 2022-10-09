@@ -4,6 +4,7 @@ import random
 
 class HashSolution:
 	def __init__(self, string):
+		# Store string input and length
 		self.string = string
 		self.string_len = len(string) + 1
 
@@ -31,26 +32,32 @@ class HashSolution:
 
 	def precompute_hashes_coefs(self):
 		for i in range(1, self.string_len):
+			# Calculate the hash for each substring, growing in size from first letter
 			self.hash_table_1[i] = (self.x * self.hash_table_1[i-1] + ord(self.string[i-1])) % self.mod_1
 			self.hash_table_2[i] = (self.x * self.hash_table_2[i-1] + ord(self.string[i-1])) % self.mod_2
 
+			# Large number exponents are time-consuming. Solution is to store the modulo of the coefficient at each step
 			self.coef_table_1[i] = (self.coef_table_1[i-1] * self.x) % self.mod_1
 			self.coef_table_2[i] = (self.coef_table_2[i-1] * self.x) % self.mod_2
 
 	def query_input(self, a_i, b_i, length):
+		# Store query input values
 		self.a_index = a_i
 		self.b_index = b_i
 		self.sub_len = length
 
 	def calc_substring_hash(self, hash_table, prime, coef_table):
+		# Calculate the substring hash using some polynomial properties (i.e. by subtracting away common parts)
 		a_hash = hash_table[self.a_index + self.sub_len] - (coef_table[self.sub_len] * hash_table[self.a_index])
 		b_hash = hash_table[self.b_index + self.sub_len] - (coef_table[self.sub_len] * hash_table[self.b_index])
 
+		# Used to get a clean modulo answer in case of negative hash values
 		a_hash = (a_hash + prime) % prime
 		b_hash = (b_hash + prime) % prime
 		return a_hash == b_hash
 
 	def check_substrings(self):
+		# Use two different hash checks to ensure strings match (very low probability of collisions with two hashes)
 		if self.calc_substring_hash(self.hash_table_1, self.mod_1, self.coef_table_1):
 			if self.calc_substring_hash(self.hash_table_2, self.mod_2, self.coef_table_2):
 				print("Yes")
