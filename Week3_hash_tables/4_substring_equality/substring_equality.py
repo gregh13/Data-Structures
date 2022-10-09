@@ -5,7 +5,7 @@ import random
 class HashSolution:
 	def __init__(self, string):
 		self.string = string
-		self.string_len = len(string)
+		self.string_len = len(string) + 1
 
 		self.hash_table_1 = [0] * self.string_len
 		self.hash_table_2 = [0] * self.string_len
@@ -23,8 +23,8 @@ class HashSolution:
 
 	def precompute_hashes(self):
 		for i in range(1, self.string_len):
-			self.hash_table_1[i] = (self.x * self.hash_table_1[i-1] + ord(self.string[i])) % self.mod_1
-			self.hash_table_2[i] = (self.x * self.hash_table_2[i-1] + ord(self.string[i])) % self.mod_2
+			self.hash_table_1[i] = (self.x * self.hash_table_1[i-1] + ord(self.string[i-1])) % self.mod_1
+			self.hash_table_2[i] = (self.x * self.hash_table_2[i-1] + ord(self.string[i-1])) % self.mod_2
 
 	def query_input(self, a_i, b_i, length):
 		self.a_index = a_i
@@ -32,8 +32,8 @@ class HashSolution:
 		self.sub_len = length
 
 	def calc_substring_hash(self, hash_table, prime):
-		a_hash = hash_table[self.a_index + self.sub_len] - ((self.x ** self.sub_len) * hash_table[self.a_index]) % prime
-		b_hash = hash_table[self.b_index + self.sub_len] - ((self.x ** self.sub_len) * hash_table[self.b_index]) % prime
+		a_hash = hash_table[self.a_index + self.sub_len] - ((self.x ** self.sub_len) * hash_table[self.a_index])
+		b_hash = hash_table[self.b_index + self.sub_len] - ((self.x ** self.sub_len) * hash_table[self.b_index])
 
 		a_hash = (a_hash + prime) % prime
 		b_hash = (b_hash + prime) % prime
