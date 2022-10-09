@@ -36,10 +36,10 @@ def hashing_algorithm(str_1, str_2):
 
 		while not_found:
 			match_found = False
-			for index_1 in range(str_1 - k):
+			for index_1 in range(len_1 - k):
 				hash_1a = h_table_1a[index_1 + k] - (coef_table_1a[k] * h_table_1a[index_1])
 				hash_1a = (hash_1a + mod_a) % mod_a
-				for index_2 in range(str_2 - k):
+				for index_2 in range(len_2 - k):
 					hash_2a = h_table_2a[index_2 + k] - (coef_table_2a[k] * h_table_2a[index_2])
 					hash_2a = (hash_2a + mod_a) % mod_a
 					if hash_2a == hash_1a:
