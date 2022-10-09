@@ -28,13 +28,14 @@ def hashing_algorithm(str_1, str_2):
 			coef_table_2b[i] = (coef_table_2b[i - 1] * x) % mod_b
 
 	def binary_hash_search():
-		results = []
+		result = Answer(0, 0, 0)
 		not_found = True
 		left = 0
 		right = max_len - 1
 		k = (left + right) // 2
 
 		while not_found:
+			match_found = False
 			for index_1 in range(str_1 - k):
 				hash_1a = h_table_1a[index_1 + k] - (coef_table_1a[k] * h_table_1a[index_1])
 				hash_1a = (hash_1a + mod_a) % mod_a
@@ -48,11 +49,23 @@ def hashing_algorithm(str_1, str_2):
 						hash_2b = (hash_2b + mod_b) % mod_b
 						if hash_2b == hash_1b:
 							# Found match
+							result = Answer(index_1, index_2, k)
+							left = k
+							if left >= right:
+								not_found = False
+								match_found = True
+								break
+							match_found = True
+							break
+				if match_found:
+					break
+			if not match_found:
+				right = k
+				if left >= right:
+					not_found = False
+					break
 
-							k = (k )
-
-
-		return a_hash
+		return result
 
 	len_1 = len(str_1)
 	len_2 = len(str_2)
