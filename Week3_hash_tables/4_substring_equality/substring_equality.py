@@ -32,8 +32,8 @@ class HashSolution:
 		self.sub_len = length
 
 	def calc_substring_hash(self, hash_table, prime):
-		a_hash = hash_table[self.a_index + self.sub_len] - ((self.x ** self.sub_len) * hash_table[self.a_index])
-		b_hash = hash_table[self.b_index + self.sub_len] - ((self.x ** self.sub_len) * hash_table[self.b_index])
+		a_hash = hash_table[self.a_index + self.sub_len] - (((self.x ** self.sub_len) % prime) * hash_table[self.a_index])
+		b_hash = hash_table[self.b_index + self.sub_len] - (((self.x ** self.sub_len) % prime) * hash_table[self.b_index])
 
 		a_hash = (a_hash + prime) % prime
 		b_hash = (b_hash + prime) % prime
