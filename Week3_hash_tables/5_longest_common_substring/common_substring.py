@@ -36,10 +36,10 @@ def hashing_algorithm(str_1, str_2):
 
 		while not_found:
 			match_found = False
-			for index_1 in range(len_1 - k):
+			for index_1 in range((len_1 + 1) - k):
 				hash_1a = h_table_1a[index_1 + k] - (coef_table_1a[k] * h_table_1a[index_1])
 				hash_1a = (hash_1a + mod_a) % mod_a
-				for index_2 in range(len_2 - k):
+				for index_2 in range((len_2 + 1) - k):
 					hash_2a = h_table_2a[index_2 + k] - (coef_table_2a[k] * h_table_2a[index_2])
 					hash_2a = (hash_2a + mod_a) % mod_a
 					if hash_2a == hash_1a:
@@ -50,18 +50,18 @@ def hashing_algorithm(str_1, str_2):
 						if hash_2b == hash_1b:
 							# Found match
 							result = Answer(index_1, index_2, k)
-							left = k
-							if left >= right:
+							if k == left:
 								not_found = False
 								match_found = True
 								break
+							left = k
 							match_found = True
 							break
 				if match_found:
 					break
 			if not match_found:
 				right = k
-				if left >= right:
+				if k == left:
 					not_found = False
 					break
 
@@ -117,6 +117,10 @@ def solve(s, t):
 					ans = Answer(i, j, l)
 	return ans
 
+s1 = "cool"
+s2 = "toolbox"
+
+hash_answer = hashing_algorithm(s1, s2)
 
 for line in sys.stdin.readlines():
 	s, t = line.split()
