@@ -9,11 +9,11 @@ Answer = namedtuple('answer_type', 'i j len')
 
 def hashing_algorithm(str_1, str_2):
 	def precompute_hashes_coefs():
-		h_table_1a[0] = ord(str_1) % mod_a
-		h_table_1b[0] = ord(str_1) % mod_b
+		h_table_1a[0] = ord(str_1[0]) % mod_a
+		h_table_1b[0] = ord(str_1[0]) % mod_b
 
-		h_table_2a[0] = ord(str_2) % mod_a
-		h_table_2b[0] = ord(str_2) % mod_b
+		h_table_2a[0] = ord(str_2[0]) % mod_a
+		h_table_2b[0] = ord(str_2[0]) % mod_b
 
 		for i in range(1, len_1):
 			h_table_1a[i] = (x * h_table_1a[i - 1] + ord(str_1[i - 1])) % mod_a
@@ -121,7 +121,8 @@ def solve(s, t):
 for line in sys.stdin.readlines():
 	s, t = line.split()
 	ans = solve(s, t)
+	print("------------------")
 	print(ans.i, ans.j, ans.len)
-	print("----------")
+	print("---")
 	hash_answer = hashing_algorithm(s, t)
 	print(hash_answer.i, hash_answer.j, hash_answer.len)
