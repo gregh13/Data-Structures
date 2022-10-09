@@ -31,7 +31,7 @@ def hashing_algorithm(str_1, str_2):
 		result = Answer(0, 0, 0)
 		not_found = True
 		left = 0
-		right = max_len - 1
+		right = max_len
 		k = (left + right) // 2
 
 		while not_found:
