@@ -65,6 +65,8 @@ def hashing_algorithm(str_1, str_2):
 					not_found = False
 					break
 
+			k = (left + right) // 2
+
 		return result
 
 	len_1 = len(str_1)
@@ -95,10 +97,9 @@ def hashing_algorithm(str_1, str_2):
 		max_len = len_2
 
 	precompute_hashes_coefs()
+	answer = binary_hash_search()
 
-
-
-
+	return answer
 
 
 
@@ -121,3 +122,6 @@ for line in sys.stdin.readlines():
 	s, t = line.split()
 	ans = solve(s, t)
 	print(ans.i, ans.j, ans.len)
+	print("----------")
+	hash_answer = hashing_algorithm(s, t)
+	print(hash_answer.i, hash_answer.j, hash_answer.len)
