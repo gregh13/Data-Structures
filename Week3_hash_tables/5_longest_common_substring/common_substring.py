@@ -126,12 +126,6 @@ def hashing_algorithm(str_1, str_2):
 	return answer
 
 
-
-
-
-
-
-
 def solve_naive(s, t):
 	ans = Answer(0, 0, 0)
 	for i in range(len(s)):
@@ -140,7 +134,6 @@ def solve_naive(s, t):
 				if (l > ans.len) and (s[i:i+l] == t[j:j+l]):
 					ans = Answer(i, j, l)
 	return ans
-
 
 
 for line in sys.stdin.readlines():
