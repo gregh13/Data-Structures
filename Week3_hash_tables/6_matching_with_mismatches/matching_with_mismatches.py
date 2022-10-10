@@ -1,6 +1,27 @@
 import sys
 
 
+class HashMismatch:
+	def __init__(self, k, text, pattern):
+		self.k = k
+		self.text = text
+		self.pattern = pattern
+
+		self.len_t = len(text) + 1
+		self.len_p = pattern
+		self.t_min_p = self.len_t - self.len_p
+
+		self.hashes = [0] * self.len_t
+
+
+
+
+
+
+
+
+
+
 def naive_solution(k, text, pattern):
 	results = []
 
