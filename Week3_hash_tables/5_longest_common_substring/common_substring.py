@@ -132,7 +132,7 @@ def hashing_algorithm(str_1, str_2):
 
 
 
-def solve(s, t):
+def solve_naive(s, t):
 	ans = Answer(0, 0, 0)
 	for i in range(len(s)):
 		for j in range(len(t)):
@@ -142,9 +142,10 @@ def solve(s, t):
 	return ans
 
 
+
 for line in sys.stdin.readlines():
 	s, t = line.split()
-	# ans = solve(s, t)
+	# ans = solve_naive(s, t)
 	# print("------------------")
 	# print(ans.i, ans.j, ans.len)
 	# print("---")
