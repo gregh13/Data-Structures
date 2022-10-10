@@ -1,7 +1,7 @@
 import sys
 
 
-def solve(k, text, pattern):
+def naive_solution(k, text, pattern):
 	results = []
 
 	len_t = len(text)
@@ -29,5 +29,5 @@ def solve(k, text, pattern):
 
 for line in sys.stdin.readlines():
 	k, t, p = line.split()
-	ans = solve(int(k), t, p)
+	ans = naive_solution(int(k), t, p)
 	print(len(ans), *ans)
