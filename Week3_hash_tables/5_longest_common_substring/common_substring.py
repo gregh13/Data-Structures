@@ -68,33 +68,38 @@ def hashing_algorithm(str_1, str_2):
 
 		return result
 
+	# Initialize string lengths with one added for better looping and indexing operations
 	len_1 = len(str_1) + 1
 	len_2 = len(str_2) + 1
 
+	# Initialize two hash tables for each string (use two hash functions to avoid collisions)
 	h_table_1a = [0] * (len_1)
 	h_table_1b = [0] * (len_1)
 
 	h_table_2a = [0] * (len_2)
 	h_table_2b = [0] * (len_2)
 
+	# Initialize two hash tables for each string
 	coef_table_1a = [1] * (len_1)
 	coef_table_1b = [1] * (len_1)
 
 	coef_table_2a = [1] * (len_2)
 	coef_table_2b = [1] * (len_2)
 
+	# Initialize two prime modulos used for hashing and multiplier x
 	power = 10 ** 9
 	mod_a = power + 87
 	mod_b = power + 223
 	x = random.randint(1, power)
 
+	# Initialize and calculate max common string length to check (will be bounded by smaller string length)
 	max_len = 0
-
 	if len_1 < len_2:
 		max_len = len_1
 	else:
 		max_len = len_2
 
+	# Use precomputation and binary search to get answer
 	precompute_hashes_coefs()
 	answer = binary_hash_search()
 
