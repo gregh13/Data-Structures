@@ -8,7 +8,6 @@ class HashMismatch:
 		self.text = text
 		self.pattern = pattern
 		self.results = []
-		self.mismatches = 0
 
 		self.len_t = len(text) + 1
 		self.len_p = len(pattern)
@@ -78,17 +77,35 @@ class HashMismatch:
 
 		return index
 
-
-
 	def find_mismatches(self):
 		# Loop through all position in text that fit pattern size
 		for i in range(self.t_min_p):
-			# Check for at most k mismatches
+
+			mismatches = 0
+
+			# Check to see if pattern contains 1 more than max allowed mismatches
 			for _ in range(self.k + 1):
 				# Use binary search to find mismatches
-				mismatches = 0
 				result_index = self.binary_mismatch_search(i, i + self.len_p)
-				if result_index != i + self.len_p:
+
+				if result_index == i + self.len_p:
+					# No more mismatches
+					break
+
+				else:
+					mismatches += 1
+
+			# Add result if under threshold
+			if mismatches <= self.k:
+				self.results.append(i)
+
+	def get_results(self):
+		return self.results
+
+
+
+
+
 
 
 
