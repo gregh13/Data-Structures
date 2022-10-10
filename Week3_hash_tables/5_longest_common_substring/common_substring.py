@@ -112,12 +112,11 @@ def solve(s, t):
 	return ans
 
 
-
 for line in sys.stdin.readlines():
 	s, t = line.split()
-	ans = solve(s, t)
-	print("------------------")
-	print(ans.i, ans.j, ans.len)
-	print("---")
+	# ans = solve(s, t)
+	# print("------------------")
+	# print(ans.i, ans.j, ans.len)
+	# print("---")
 	hash_answer = hashing_algorithm(s, t)
 	print(hash_answer.i, hash_answer.j, hash_answer.len)
