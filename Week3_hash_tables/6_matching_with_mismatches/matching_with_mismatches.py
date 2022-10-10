@@ -8,9 +8,10 @@ class HashMismatch:
 		self.text = text
 		self.pattern = pattern
 		self.results = []
+		self.mismatches = 0
 
 		self.len_t = len(text) + 1
-		self.len_p = len(pattern) + 1
+		self.len_p = len(pattern)
 		self.t_min_p = self.len_t - self.len_p
 
 		self.power = 10**9
@@ -23,10 +24,10 @@ class HashMismatch:
 		self.coefs_1a = [1] * self.len_t
 		self.coefs_1b = [1] * self.len_t
 
-		self.hashes_2a = [0] * self.len_p
-		self.hashes_2b = [0] * self.len_p
-		self.coefs_2a = [1] * self.len_p
-		self.coefs_2b = [1] * self.len_p
+		self.hashes_2a = [0] * (self.len_p + 1)
+		self.hashes_2b = [0] * (self.len_p + 1)
+		self.coefs_2a = [1] * (self.len_p + 1)
+		self.coefs_2b = [1] * (self.len_p + 1)
 
 		self.precompute_values()
 
@@ -38,15 +39,35 @@ class HashMismatch:
 			self.coefs_1a = (self.coefs_1a[i-1] * self.x) % self.mod_a
 			self.coefs_1b = (self.coefs_1b[i-1] * self.x) % self.mod_b
 
-		for i in range(1, self.len_p):
+		for i in range(1, (self.len_p + 1)):
 			self.hashes_2a = (self.x * self.hashes_2a[i-1] + ord(self.pattern[i-1])) % self.mod_a
 			self.hashes_2b = (self.x * self.hashes_2b[i-1] + ord(self.pattern[i-1])) % self.mod_b
 
 			self.coefs_2a = (self.coefs_2a[i-1] * self.x) % self.mod_a
 			self.coefs_2b = (self.coefs_2b[i-1] * self.x) % self.mod_b
 
-	def binary_mismatch_search(self, left, right):
-		mismatches = 0
+	def binary_mismatch_search(self, left, right, mismatches):
+		mid = (left + right) // 2
+
+		hash_t = self.hashes_1a[mid] - (self.coefs_1a[left] * self.hashes_1a[left])
+		hash_t = (hash_t + self.mod_a) % self.mod_a
+
+		hash_p = self.hashes_2a[mid] - (self.coefs_2a[left] * self.hashes_2a[left])
+		hash_p = (hash_p + self.mod_a) % self.mod_a
+
+		if hash_t != hash_p:
+			right = mid - 1
+			self.binary_mismatch_search(left, right, mismatches)
+
+
+
+	def find_mismatches(self):
+		# Loop through all position in text that fit pattern size
+		for i in range(self.t_min_p):
+			# Use binary search to find mismatches
+			self.binary_mismatch_search(i, i + self.len_p, 0)
+
+
 
 
 
