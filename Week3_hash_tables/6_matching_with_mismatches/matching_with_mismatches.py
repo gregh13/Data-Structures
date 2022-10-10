@@ -47,17 +47,35 @@ class HashMismatch:
 			self.coefs_2b = (self.coefs_2b[i-1] * self.x) % self.mod_b
 
 	def binary_mismatch_search(self, left, right, mismatches):
+		if left >= right or mismatches > self.k:
+			return
+
 		mid = (left + right) // 2
 
-		hash_t = self.hashes_1a[mid] - (self.coefs_1a[left] * self.hashes_1a[left])
-		hash_t = (hash_t + self.mod_a) % self.mod_a
+		hash_1a = self.hashes_1a[mid] - (self.coefs_1a[left] * self.hashes_1a[left])
+		hash_2a = self.hashes_2a[mid] - (self.coefs_2a[left] * self.hashes_2a[left])
 
-		hash_p = self.hashes_2a[mid] - (self.coefs_2a[left] * self.hashes_2a[left])
-		hash_p = (hash_p + self.mod_a) % self.mod_a
+		hash_1a = (hash_1a + self.mod_a) % self.mod_a
+		hash_2a = (hash_2a + self.mod_a) % self.mod_a
 
-		if hash_t != hash_p:
+		if hash_1a != hash_2a:
 			right = mid - 1
 			self.binary_mismatch_search(left, right, mismatches)
+		else:
+			hash_1b = self.hashes_1b[mid] - (self.coefs_1b[left] * self.hashes_1b[left])
+			hash_2b = self.hashes_2b[mid] - (self.coefs_2b[left] * self.hashes_2b[left])
+
+			hash_1b = (hash_1b + self.mod_b) % self.mod_b
+			hash_2b = (hash_2b + self.mod_b) % self.mod_b
+
+			if hash_1b != hash_2b:
+				right = mid - 1
+				self.binary_mismatch_search(left, right, mismatches)
+			else:
+				left = mid + 1
+				self.binary_mismatch_search(left, right, mismatches)
+
+		return
 
 
 
