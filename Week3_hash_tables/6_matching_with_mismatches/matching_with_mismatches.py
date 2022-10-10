@@ -17,11 +17,18 @@ class HashMismatch:
 		self.mod_2 = self.power + 2233
 		self.x = random.randint(1, self.power)
 
-		self.hashes = [0] * self.len_t
-		self.coefs = [1] * self.len_t
+		self.hashes_1 = [0] * self.len_t
+		self.hashes_2 = [0] * self.len_t
+		self.coefs_1 = [1] * self.len_t
+		self.coefs_2 = [1] * self.len_t
 
 	def precompute_values(self):
-		for i in range(self.len_t):
+		for i in range(1, self.len_t):
+			self.hashes_1 = (self.x * self.hashes_1[i-1] + ord(self.text[i-1])) % self.mod_1
+			self.hashes_2 = (self.x * self.hashes_2[i-1] + ord(self.text[i-1])) % self.mod_2
+
+			self.coefs_1 = (self.coefs_1[i-1] * self.x) % self.mod_1
+			self.coefs_2 = (self.coefs_2[i-1] * self.x) % self.mod_2
 
 
 
