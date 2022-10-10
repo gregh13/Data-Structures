@@ -12,7 +12,7 @@ def solve(k, text, pattern):
 
 	for i in range(len_t - len_p):
 		for j in range(len_p):
-			char_t = text[i:(j+1)]
+			char_t = text[i+j:i+j+1]
 			if pattern[j] != char_t:
 				mismatches += 1
 				if mismatches > k:
@@ -20,8 +20,9 @@ def solve(k, text, pattern):
 					break
 		if match_found:
 			results.append(i)
-			mismatches = 0
 			match_found = False
+
+		mismatches = 0
 
 	return results
 
