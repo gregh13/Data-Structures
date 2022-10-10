@@ -99,22 +99,9 @@ class HashMismatch:
 			if mismatches <= self.k:
 				self.results.append(i)
 
-	def get_results(self):
-		return self.results
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	def print_results(self):
+		print(len(self.results), *self.results)
+		return
 
 
 
@@ -150,5 +137,7 @@ def naive_solution(k, text, pattern):
 
 for line in sys.stdin.readlines():
 	k, t, p = line.split()
-	ans = naive_solution(int(k), t, p)
-	print(len(ans), *ans)
+	hashbrowns = HashMismatch(k, t, p)
+	hashbrowns.
+	# ans = naive_solution(int(k), t, p)
+	# print(len(ans), *ans)
