@@ -9,12 +9,6 @@ Answer = namedtuple('answer_type', 'i j len')
 
 def hashing_algorithm(str_1, str_2):
 	def precompute_hashes_coefs():
-		h_table_1a[0] = ord(str_1[0]) % mod_a
-		h_table_1b[0] = ord(str_1[0]) % mod_b
-
-		h_table_2a[0] = ord(str_2[0]) % mod_a
-		h_table_2b[0] = ord(str_2[0]) % mod_b
-
 		for i in range(1, len_1):
 			h_table_1a[i] = (x * h_table_1a[i - 1] + ord(str_1[i - 1])) % mod_a
 			coef_table_1a[i] = (coef_table_1a[i - 1] * x) % mod_a
@@ -30,16 +24,16 @@ def hashing_algorithm(str_1, str_2):
 	def binary_hash_search():
 		result = Answer(0, 0, 0)
 		not_found = True
-		left = 0
+		left = 1
 		right = max_len
 		k = (left + right) // 2
 
 		while not_found:
 			match_found = False
-			for index_1 in range((len_1 + 1) - k):
+			for index_1 in range(len_1 - k):
 				hash_1a = h_table_1a[index_1 + k] - (coef_table_1a[k] * h_table_1a[index_1])
 				hash_1a = (hash_1a + mod_a) % mod_a
-				for index_2 in range((len_2 + 1) - k):
+				for index_2 in range(len_2 - k):
 					hash_2a = h_table_2a[index_2 + k] - (coef_table_2a[k] * h_table_2a[index_2])
 					hash_2a = (hash_2a + mod_a) % mod_a
 					if hash_2a == hash_1a:
@@ -69,8 +63,8 @@ def hashing_algorithm(str_1, str_2):
 
 		return result
 
-	len_1 = len(str_1)
-	len_2 = len(str_2)
+	len_1 = len(str_1) + 1
+	len_2 = len(str_2) + 1
 
 	h_table_1a = [0] * (len_1)
 	h_table_1b = [0] * (len_1)
@@ -117,10 +111,7 @@ def solve(s, t):
 					ans = Answer(i, j, l)
 	return ans
 
-s1 = "cool"
-s2 = "toolbox"
 
-hash_answer = hashing_algorithm(s1, s2)
 
 for line in sys.stdin.readlines():
 	s, t = line.split()
