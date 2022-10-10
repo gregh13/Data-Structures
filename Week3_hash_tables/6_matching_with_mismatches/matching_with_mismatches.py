@@ -10,7 +10,7 @@ def solve(k, text, pattern):
 	mismatches = 0
 	no_match = False
 
-	for i in range(len_t - len_p):
+	for i in range((len_t+1) - len_p):
 		for j in range(len_p):
 			char_t = text[i+j:i+j+1]
 			if pattern[j] != char_t:
@@ -26,7 +26,6 @@ def solve(k, text, pattern):
 
 	return results
 
-solve(1, "ababab", "baaa")
 
 for line in sys.stdin.readlines():
 	k, t, p = line.split()
