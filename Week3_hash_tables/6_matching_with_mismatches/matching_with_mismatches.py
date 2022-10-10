@@ -4,7 +4,7 @@ import random
 
 class HashMismatch:
 	def __init__(self, k, text, pattern):
-		self.k = k
+		self.k = int(k)
 		self.text = text
 		self.pattern = pattern
 		self.results = []
@@ -32,18 +32,18 @@ class HashMismatch:
 
 	def precompute_values(self):
 		for i in range(1, self.len_t):
-			self.hashes_1a = (self.x * self.hashes_1a[i-1] + ord(self.text[i-1])) % self.mod_a
-			self.hashes_1b = (self.x * self.hashes_1b[i-1] + ord(self.text[i-1])) % self.mod_b
+			self.hashes_1a[i] = (self.x * self.hashes_1a[i-1] + ord(self.text[i-1])) % self.mod_a
+			self.hashes_1b[i] = (self.x * self.hashes_1b[i-1] + ord(self.text[i-1])) % self.mod_b
 
-			self.coefs_1a = (self.coefs_1a[i-1] * self.x) % self.mod_a
-			self.coefs_1b = (self.coefs_1b[i-1] * self.x) % self.mod_b
+			self.coefs_1a[i] = (self.coefs_1a[i-1] * self.x) % self.mod_a
+			self.coefs_1b[i] = (self.coefs_1b[i-1] * self.x) % self.mod_b
 
 		for i in range(1, (self.len_p + 1)):
-			self.hashes_2a = (self.x * self.hashes_2a[i-1] + ord(self.pattern[i-1])) % self.mod_a
-			self.hashes_2b = (self.x * self.hashes_2b[i-1] + ord(self.pattern[i-1])) % self.mod_b
+			self.hashes_2a[i] = (self.x * self.hashes_2a[i-1] + ord(self.pattern[i-1])) % self.mod_a
+			self.hashes_2b[i] = (self.x * self.hashes_2b[i-1] + ord(self.pattern[i-1])) % self.mod_b
 
-			self.coefs_2a = (self.coefs_2a[i-1] * self.x) % self.mod_a
-			self.coefs_2b = (self.coefs_2b[i-1] * self.x) % self.mod_b
+			self.coefs_2a[i] = (self.coefs_2a[i-1] * self.x) % self.mod_a
+			self.coefs_2b[i] = (self.coefs_2b[i-1] * self.x) % self.mod_b
 
 	def binary_mismatch_search(self, left, right):
 		if left >= right:
@@ -138,6 +138,7 @@ def naive_solution(k, text, pattern):
 for line in sys.stdin.readlines():
 	k, t, p = line.split()
 	hashbrowns = HashMismatch(k, t, p)
-	hashbrowns.
+	hashbrowns.find_mismatches()
+	hashbrowns.print_results()
 	# ans = naive_solution(int(k), t, p)
 	# print(len(ans), *ans)
