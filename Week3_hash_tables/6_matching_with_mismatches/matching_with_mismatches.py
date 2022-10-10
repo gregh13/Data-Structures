@@ -45,35 +45,37 @@ class HashMismatch:
 			self.coefs_2a[i] = (self.coefs_2a[i-1] * self.x) % self.mod_a
 			self.coefs_2b[i] = (self.coefs_2b[i-1] * self.x) % self.mod_b
 
-	def binary_mismatch_search(self, left, right):
+	def binary_mismatch_search(self, left, right, text_index):
 		if left >= right:
 			index = left
 			return index
 
 		mid = (left + right) // 2
+		mid_2 = mid - text_index
+		left_2 = left - text_index
 
 		hash_1a = self.hashes_1a[mid] - (self.coefs_1a[left] * self.hashes_1a[left])
-		hash_2a = self.hashes_2a[mid] - (self.coefs_2a[left] * self.hashes_2a[left])
+		hash_2a = self.hashes_2a[mid_2] - (self.coefs_2a[left_2] * self.hashes_2a[left_2])
 
 		hash_1a = (hash_1a + self.mod_a) % self.mod_a
 		hash_2a = (hash_2a + self.mod_a) % self.mod_a
 
 		if hash_1a != hash_2a:
 			right = mid
-			index = self.binary_mismatch_search(left, right)
+			index = self.binary_mismatch_search(left, right, text_index)
 		else:
 			hash_1b = self.hashes_1b[mid] - (self.coefs_1b[left] * self.hashes_1b[left])
-			hash_2b = self.hashes_2b[mid] - (self.coefs_2b[left] * self.hashes_2b[left])
+			hash_2b = self.hashes_2b[mid_2] - (self.coefs_2b[left_2] * self.hashes_2b[left_2])
 
 			hash_1b = (hash_1b + self.mod_b) % self.mod_b
 			hash_2b = (hash_2b + self.mod_b) % self.mod_b
 
 			if hash_1b != hash_2b:
 				right = mid
-				index = self.binary_mismatch_search(left, right)
+				index = self.binary_mismatch_search(left, right, text_index)
 			else:
 				left = mid + 1
-				index = self.binary_mismatch_search(left, right)
+				index = self.binary_mismatch_search(left, right, text_index)
 
 		return index
 
@@ -82,18 +84,20 @@ class HashMismatch:
 		for i in range(self.t_min_p):
 
 			mismatches = 0
+			left = i
+			right = i + self.len_p
 
 			# Check to see if pattern contains 1 more than max allowed mismatches
 			for _ in range(self.k + 1):
 				# Use binary search to find mismatches
-				result_index = self.binary_mismatch_search(i, i + self.len_p)
+				result_index = self.binary_mismatch_search(left, right, i)
 
 				if result_index == i + self.len_p:
 					# No more mismatches
 					break
-
 				else:
 					mismatches += 1
+					left = result_index + 1
 
 			# Add result if under threshold
 			if mismatches <= self.k:
