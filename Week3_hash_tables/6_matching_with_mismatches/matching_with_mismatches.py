@@ -1,4 +1,5 @@
 import sys
+import random
 
 
 class HashMismatch:
@@ -11,7 +12,17 @@ class HashMismatch:
 		self.len_p = pattern
 		self.t_min_p = self.len_t - self.len_p
 
+		self.power = 10**9
+		self.mod_1 = self.power + 1957
+		self.mod_2 = self.power + 2233
+		self.x = random.randint(1, self.power)
+
 		self.hashes = [0] * self.len_t
+		self.coefs = [1] * self.len_t
+
+	def precompute_values(self):
+		for i in range(self.len_t):
+
 
 
 
