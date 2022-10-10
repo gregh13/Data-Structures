@@ -10,7 +10,7 @@ class HashMismatch:
 		self.results = []
 
 		self.len_t = len(text) + 1
-		self.len_p = pattern
+		self.len_p = len(pattern) + 1
 		self.t_min_p = self.len_t - self.len_p
 
 		self.power = 10**9
