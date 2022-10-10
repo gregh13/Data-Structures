@@ -57,8 +57,6 @@ def hashing_algorithm(str_1, str_2):
 						left = k
 						match_found = True
 						break
-			if match_found:
-				break
 
 			if not match_found:
 				right = k
