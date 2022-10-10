@@ -29,27 +29,27 @@ def hashing_algorithm(str_1, str_2):
 		k = (left + right) // 2
 
 		while not_found:
-			sub_h_table_1a = [0] * (len_1 - k)
+			sub_h_dict_1a = {}
 
 			match_found = False
 
 			for index_1 in range(len_1 - k):
 				hash_1a = h_table_1a[index_1 + k] - (coef_table_1a[k] * h_table_1a[index_1])
 				hash_1a = (hash_1a + mod_a) % mod_a
-				sub_h_table_1a[index_1] = hash_1a
+				sub_h_dict_1a[hash_1a] = index_1
 
 			for index_2 in range(len_2 - k):
 				hash_2a = h_table_2a[index_2 + k] - (coef_table_2a[k] * h_table_2a[index_2])
 				hash_2a = (hash_2a + mod_a) % mod_a
 
-				if hash_2a in sub_h_table_1a:
-					hash_1b = h_table_1b[index_1 + k] - (coef_table_1b[k] * h_table_1b[index_1])
+				if hash_2a in sub_h_dict_1a:
+					hash_1b = h_table_1b[sub_h_dict_1a[hash_2a] + k] - (coef_table_1b[k] * h_table_1b[sub_h_dict_1a[hash_2a]])
 					hash_2b = h_table_2b[index_2 + k] - (coef_table_2b[k] * h_table_2b[index_2])
 					hash_1b = (hash_1b + mod_b) % mod_b
 					hash_2b = (hash_2b + mod_b) % mod_b
 					if hash_2b == hash_1b:
 						# Found match
-						result = Answer(index_1, index_2, k)
+						result = Answer(sub_h_dict_1a[hash_2a], index_2, k)
 						if k == left:
 							not_found = False
 							match_found = True
