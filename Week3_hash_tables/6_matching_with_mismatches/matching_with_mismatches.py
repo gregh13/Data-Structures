@@ -60,7 +60,7 @@ class HashMismatch:
 		hash_2a = (hash_2a + self.mod_a) % self.mod_a
 
 		if hash_1a != hash_2a:
-			right = mid - 1
+			right = mid
 			index = self.binary_mismatch_search(left, right)
 		else:
 			hash_1b = self.hashes_1b[mid] - (self.coefs_1b[left] * self.hashes_1b[left])
@@ -70,7 +70,7 @@ class HashMismatch:
 			hash_2b = (hash_2b + self.mod_b) % self.mod_b
 
 			if hash_1b != hash_2b:
-				right = mid - 1
+				right = mid
 				index = self.binary_mismatch_search(left, right)
 			else:
 				left = mid + 1
@@ -83,9 +83,13 @@ class HashMismatch:
 	def find_mismatches(self):
 		# Loop through all position in text that fit pattern size
 		for i in range(self.t_min_p):
-			# Use binary search to find mismatches
-			result_index = self.binary_mismatch_search(i, i + self.len_p, 0)
-			if result_index !=
+			# Check for at most k mismatches
+			for _ in range(self.k + 1):
+				# Use binary search to find mismatches
+				mismatches = 0
+				result_index = self.binary_mismatch_search(i, i + self.len_p)
+				if result_index != i + self.len_p:
+
 
 
 
