@@ -8,18 +8,18 @@ threading.stack_size(2**25)   # new thread will get stack of such size
 
 
 def is_bst(tree):
-    def get_inorder(key_index):
+    def check_inorder(key_index):
         if key_index == -1:
             return
 
         node = tree[key_index]
-        get_inorder(node[1])
+        check_inorder(node[1])
         if node[0] > results[-1]:
             results.append(node[0])
         else:
             okay_tree[0] = False
             return
-        get_inorder(node[2])
+        check_inorder(node[2])
 
         return
 
@@ -27,7 +27,7 @@ def is_bst(tree):
     results = [float("-inf")]
     okay_tree = [True]
     # Start search with root index
-    get_inorder(0)
+    check_inorder(0)
     return okay_tree[0]
 
 
@@ -36,10 +36,13 @@ def main():
     tree = []
     for i in range(nodes):
         tree.append(list(map(int, sys.stdin.readline().strip().split())))
-    if is_bst(tree):
-        print("CORRECT")
+    if len(tree) > 0:
+        if is_bst(tree):
+            print("CORRECT")
+        else:
+            print("INCORRECT")
     else:
-        print("INCORRECT")
+        print("CORRECT")
 
 
 threading.Thread(target=main).start()
