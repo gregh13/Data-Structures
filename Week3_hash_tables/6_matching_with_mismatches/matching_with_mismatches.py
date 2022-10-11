@@ -4,30 +4,36 @@ import random
 
 class HashMismatch:
 	def __init__(self, k, text, pattern):
+		# Initialize query inputs and result array
 		self.k = int(k)
 		self.text = text
 		self.pattern = pattern
 		self.results = []
 
+		# Initialize length variables
 		self.len_t = len(text) + 1
 		self.len_p = len(pattern)
 		self.t_min_p = self.len_t - self.len_p
 
+		# Initialize prime modulos and hash multiplier x
 		self.power = 10**9
 		self.mod_a = self.power + 1957
 		self.mod_b = self.power + 2233
 		self.x = random.randint(1, self.power)
 
+		# Initialize hash and coefficient tables for text
 		self.hashes_1a = [0] * self.len_t
 		self.hashes_1b = [0] * self.len_t
 		self.coefs_1a = [1] * self.len_t
 		self.coefs_1b = [1] * self.len_t
 
+		# Initialize hash and coefficient tables for pattern
 		self.hashes_2a = [0] * (self.len_p + 1)
 		self.hashes_2b = [0] * (self.len_p + 1)
 		self.coefs_2a = [1] * (self.len_p + 1)
 		self.coefs_2b = [1] * (self.len_p + 1)
 
+		# Prepare for mismatch search (precomputed hashes and coefs allow for constant time substring comparisons)
 		self.precompute_values()
 
 	def precompute_values(self):
@@ -106,7 +112,6 @@ class HashMismatch:
 
 	def print_results(self):
 		print(len(self.results), *self.results)
-		return
 
 
 
