@@ -52,6 +52,9 @@ def main():
     # Initialize empty tree
     tree = []
 
+    # Initialize parent node array
+    parents = [-1 for n in range(nodes)]
+
     # Build tree
     for i in range(nodes):
         tree.append(list(map(int, sys.stdin.readline().strip().split())))
