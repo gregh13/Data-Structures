@@ -52,61 +52,74 @@ class HashMismatch:
 			self.coefs_2b[i] = (self.coefs_2b[i-1] * self.x) % self.mod_b
 
 	def binary_mismatch_search(self, left, right, text_index):
+		# Perform recursive exit check
 		if left >= right:
 			index = left
 			return index
 
+		# Initialize index variables
 		mid = (left + right) // 2
 		mid_2 = mid - text_index
 		left_2 = left - text_index
 		sub_len = (mid - left) + 1
 
+		# Compute hashes for substrings in text and pattern
 		hash_1a = self.hashes_1a[mid+1] - (self.coefs_1a[sub_len] * self.hashes_1a[left])
 		hash_2a = self.hashes_2a[mid_2+1] - (self.coefs_2a[sub_len] * self.hashes_2a[left_2])
 
+		# Safeguard measure against negative number modulo error
 		hash_1a = (hash_1a + self.mod_a) % self.mod_a
 		hash_2a = (hash_2a + self.mod_a) % self.mod_a
 
+		# Compare hash values
 		if hash_1a != hash_2a:
+			# Mismatch found, need to check left half for first occurrence of mismatch
 			right = mid
 			index = self.binary_mismatch_search(left, right, text_index)
 		else:
+			# First set of hashes match, need to check second set of hashes to ensure no collision occurred
 			hash_1b = self.hashes_1b[mid+1] - (self.coefs_1b[sub_len] * self.hashes_1b[left])
 			hash_2b = self.hashes_2b[mid_2+1] - (self.coefs_2b[sub_len] * self.hashes_2b[left_2])
 
 			hash_1b = (hash_1b + self.mod_b) % self.mod_b
 			hash_2b = (hash_2b + self.mod_b) % self.mod_b
 
+			# Check second set of hashes
 			if hash_1b != hash_2b:
+				# Collision detected; mismatch found, check left half for start of mismatching
 				right = mid
 				index = self.binary_mismatch_search(left, right, text_index)
 			else:
+				# Substrings match up to this point, need to check right half for any mismatches
 				left = mid + 1
 				index = self.binary_mismatch_search(left, right, text_index)
 
 		return index
 
 	def find_mismatches(self):
-		# Loop through all position in text that fit pattern size
+		# Loop through all positions in text that fit pattern size
 		for i in range(self.t_min_p):
 
+			# Initialize search parameters
 			mismatches = 0
 			left = i
 			right = i + self.len_p
 
 			# Check to see if pattern contains 1 more than max allowed mismatches
 			for _ in range(self.k + 1):
-				# Use binary search to find mismatches
+				# Use binary search to find first occurrence of a mismatch (rather than linear scanning)
 				result_index = self.binary_mismatch_search(left, right, i)
 
+				# Anything less than right bound will be a mismatch
 				if result_index == right:
 					# No more mismatches
 					break
 				else:
+					# Update params for next iteration
 					mismatches += 1
 					left = result_index + 1
 
-			# Add result if under threshold
+			# Add result if under threshold of k
 			if mismatches <= self.k:
 				self.results.append(i)
 
