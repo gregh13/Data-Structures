@@ -19,7 +19,7 @@ def is_bst(tree, nodes):
         node = tree[key_index]
 
         # Traverse inorder, check left child first
-        check_inorder(node[1])
+        check_inorder(node[1], key_index)
 
         # Check that tree is inorder (i.e. ascending in value)
         if node[0] > results[-1]:
@@ -31,7 +31,7 @@ def is_bst(tree, nodes):
             return
 
         # Check right child
-        check_inorder(node[2])
+        check_inorder(node[2], key_index)
 
         return
 
