@@ -26,9 +26,16 @@ def is_bst(tree, nodes):
             # Node value in order, add current node value to list
             results.append(node[0])
         else:
-            # Found value not in order, change flag
-            correct_tree[0] = False
-            return
+            if node[0] == results[-1]:
+                # Need to make sure same value wasn't from parent's left child (assignment stipulations)
+                parent_node = tree[parent]
+                left_child_index = parent_node[1]
+                if left_child_index == key_index:
+                    pass
+            else:
+                # Found value not in order, change flag
+                correct_tree[0] = False
+                return
 
         # Check right child
         check_inorder(node[2], key_index)
