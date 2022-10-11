@@ -10,7 +10,7 @@ threading.stack_size(2**27)   # new thread will get stack of such size
 def is_bst(tree):
     def check_inorder(key_index):
         # Check if null child node
-        if key_index == -1:
+        if key_index == -1 or not correct_tree[0]:
             return
 
         # Store value for use below; node = [node value, left child index, right child index]
