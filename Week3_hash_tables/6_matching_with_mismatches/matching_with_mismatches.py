@@ -53,9 +53,10 @@ class HashMismatch:
 		mid = (left + right) // 2
 		mid_2 = mid - text_index
 		left_2 = left - text_index
+		sub_len = (mid - left) + 1
 
-		hash_1a = self.hashes_1a[mid] - (self.coefs_1a[left] * self.hashes_1a[left])
-		hash_2a = self.hashes_2a[mid_2] - (self.coefs_2a[left_2] * self.hashes_2a[left_2])
+		hash_1a = self.hashes_1a[mid+1] - (self.coefs_1a[sub_len] * self.hashes_1a[left])
+		hash_2a = self.hashes_2a[mid_2+1] - (self.coefs_2a[sub_len] * self.hashes_2a[left_2])
 
 		hash_1a = (hash_1a + self.mod_a) % self.mod_a
 		hash_2a = (hash_2a + self.mod_a) % self.mod_a
@@ -64,8 +65,8 @@ class HashMismatch:
 			right = mid
 			index = self.binary_mismatch_search(left, right, text_index)
 		else:
-			hash_1b = self.hashes_1b[mid] - (self.coefs_1b[left] * self.hashes_1b[left])
-			hash_2b = self.hashes_2b[mid_2] - (self.coefs_2b[left_2] * self.hashes_2b[left_2])
+			hash_1b = self.hashes_1b[mid+1] - (self.coefs_1b[sub_len] * self.hashes_1b[left])
+			hash_2b = self.hashes_2b[mid_2+1] - (self.coefs_2b[sub_len] * self.hashes_2b[left_2])
 
 			hash_1b = (hash_1b + self.mod_b) % self.mod_b
 			hash_2b = (hash_2b + self.mod_b) % self.mod_b
@@ -92,7 +93,7 @@ class HashMismatch:
 				# Use binary search to find mismatches
 				result_index = self.binary_mismatch_search(left, right, i)
 
-				if result_index == i + self.len_p:
+				if result_index == right:
 					# No more mismatches
 					break
 				else:
