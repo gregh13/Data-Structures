@@ -31,7 +31,9 @@ def is_bst(tree, nodes):
                 parent_node = tree[parent]
                 left_child_index = parent_node[1]
                 if left_child_index == key_index:
-                    pass
+                    # Duplicate on left side, tree not in order
+                    correct_tree[0] = False
+                    return
             else:
                 # Found value not in order, change flag
                 correct_tree[0] = False
