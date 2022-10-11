@@ -20,16 +20,12 @@ class TreeOrders:
 
     def inorder(self):
         def get_inorder(key_index):
-            if self.left[key_index] == -1:
-                self.results.append(self.key[key_index])
-                if self.right[key_index] != -1:
-                    get_inorder(self.right[key_index])
+            if key_index == -1:
                 return
 
             get_inorder(self.left[key_index])
             self.results.append(self.key[key_index])
-            if self.right[key_index] != -1:
-                get_inorder(self.right[key_index])
+            get_inorder(self.right[key_index])
 
             return
 
