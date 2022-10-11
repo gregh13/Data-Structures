@@ -7,8 +7,10 @@ sys.setrecursionlimit(10**7)  # max depth of recursion
 threading.stack_size(2**27)   # new thread will get stack of such size
 
 
-def is_bst(tree):
-    def check_inorder(key_index):
+def is_bst(tree, nodes):
+    def check_inorder(key_index, parent):
+        parents[key_index] = parent
+
         # Check if null child node
         if key_index == -1:
             return
@@ -33,6 +35,9 @@ def is_bst(tree):
 
         return
 
+    # Initialize parent node array
+    parents = [-1 for _ in range(nodes)]
+
     # Initialize results, start with negative infinity for first leaf value comparison
     results = [float("-inf")]
 
@@ -40,7 +45,7 @@ def is_bst(tree):
     correct_tree = [True]
 
     # Start search with root index
-    check_inorder(0)
+    check_inorder(0, -1)
 
     return correct_tree[0]
 
@@ -52,9 +57,6 @@ def main():
     # Initialize empty tree
     tree = []
 
-    # Initialize parent node array
-    parents = [-1 for n in range(nodes)]
-
     # Build tree
     for i in range(nodes):
         tree.append(list(map(int, sys.stdin.readline().strip().split())))
@@ -63,7 +65,7 @@ def main():
     if len(tree) > 0:
 
         # Check if tree is a valid binary search tree
-        if is_bst(tree):
+        if is_bst(tree, nodes):
             print("CORRECT")
         else:
             print("INCORRECT")
