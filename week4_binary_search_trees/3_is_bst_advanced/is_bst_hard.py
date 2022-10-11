@@ -24,12 +24,15 @@ def is_bst(tree):
             # Node value in order, add current node value to list
             results.append(node[0])
         else:
-
+            # Check if it's a duplicate
             if node[0] == results[-1]:
-
+                # Left side is strictly less than node value, so when two values are the same, it must go to the right
+                # As such, the duplicate node won't have a left child since any value would break the tree conditions
                 if node[1] == -1:
+                    # No left child, duplicate node is in proper place
                     results.append(node[0])
                 else:
+                    # Duplicate is somewhere to the left of current value, proper order is broken
                     correct_tree[0] = False
                     return
             else:
