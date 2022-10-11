@@ -7,7 +7,7 @@ threading.stack_size(2**27)  # new thread will get stack of such size
 
 class TreeOrders:
     def __init__(self):
-        self.result = []
+        self.results = []
         self.n = int(sys.stdin.readline())
         self.key = [0 for i in range(self.n)]
         self.left = [0 for i in range(self.n)]
@@ -19,25 +19,36 @@ class TreeOrders:
             self.right[i] = c
 
     def inorder(self):
-        self.result = []
-        # Finish the implementation
-        # You may need to add a new recursive method to do that
-                
-        return self.result
+        def get_inorder(key_index):
+            if self.left[key_index] == -1:
+                self.results.append(self.key[key_index])
+                if self.right[key_index] != -1:
+                    get_inorder(self.right[key_index])
+                return
+
+            get_inorder(self.left[key_index])
+            self.results.append(self.key[key_index])
+            if self.right[key_index] != -1:
+                get_inorder(self.right[key_index])
+
+            return
+
+        self.results = []
+        # Start search with root index
+        get_inorder(0)
+
+        return self.results
 
     def preorder(self):
-        self.result = []
-        # Finish the implementation
-        # You may need to add a new recursive method to do that
-                
-        return self.result
+        self.results = []
+
+        return self.results
 
     def postorder(self):
-        self.result = []
-        # Finish the implementation
-        # You may need to add a new recursive method to do that
+        self.results = []
 
-        return self.result
+        return self.results
+
 
 
 def main():
