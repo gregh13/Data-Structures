@@ -46,11 +46,20 @@ def is_bst(tree):
 
 
 def main():
+    # Number of nodes
     nodes = int(sys.stdin.readline().strip())
+
+    # Initialize empty tree
     tree = []
+
+    # Build tree
     for i in range(nodes):
         tree.append(list(map(int, sys.stdin.readline().strip().split())))
+
+    # Check if tree exists
     if len(tree) > 0:
+
+        # Check if tree is a valid binary search tree
         if is_bst(tree):
             print("CORRECT")
         else:
