@@ -36,8 +36,19 @@ class TreeOrders:
         return self.results
 
     def preorder(self):
-        self.results = []
+        def get_preorder(key_index):
+            if key_index == -1:
+                return
 
+            self.results.append(self.key[key_index])
+            get_preorder(self.left[key_index])
+            get_preorder(self.right[key_index])
+
+            return
+
+        self.results = []
+        # Start search with root index
+        get_preorder(0)
         return self.results
 
     def postorder(self):
