@@ -24,7 +24,7 @@ def is_bst(tree):
         return
 
     # Reset results list
-    results = []
+    results = [float("-inf")]
     okay_tree = [True]
     # Start search with root index
     get_inorder(0)
