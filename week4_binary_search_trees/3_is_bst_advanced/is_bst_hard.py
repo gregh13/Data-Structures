@@ -27,11 +27,12 @@ def is_bst(tree, nodes):
             results.append(node[0])
         else:
             if node[0] == results[-1]:
-                # Need to make sure same value wasn't from parent's left child (assignment stipulations)
-                parent_node = tree[parent]
-                left_child_index = parent_node[1]
-                if left_child_index == key_index:
-                    # Duplicate on left side, tree not in order
+
+                if node[1] == -1:
+                    # Current node is right child, meaning duplicate is in correct order; add node to list
+                    results.append(node[0])
+                else:
+                    # Duplicate came from left child subtree, error found
                     correct_tree[0] = False
                     return
             else:
