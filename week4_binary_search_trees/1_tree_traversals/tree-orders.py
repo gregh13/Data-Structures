@@ -52,8 +52,19 @@ class TreeOrders:
         return self.results
 
     def postorder(self):
-        self.results = []
+        def get_postorder(key_index):
+            if key_index == -1:
+                return
 
+            get_postorder(self.left[key_index])
+            get_postorder(self.right[key_index])
+            self.results.append(self.key[key_index])
+
+            return
+
+        self.results = []
+        # Start search with root index
+        get_postorder(0)
         return self.results
 
 
