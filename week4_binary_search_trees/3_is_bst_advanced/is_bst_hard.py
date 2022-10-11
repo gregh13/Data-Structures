@@ -7,10 +7,8 @@ sys.setrecursionlimit(10**7)  # max depth of recursion
 threading.stack_size(2**27)   # new thread will get stack of such size
 
 
-def is_bst(tree, nodes):
-    def check_inorder(key_index, parent):
-        parents[key_index] = parent
-
+def is_bst(tree):
+    def check_inorder(key_index):
         # Check if null child node
         if key_index == -1:
             return
@@ -19,20 +17,19 @@ def is_bst(tree, nodes):
         node = tree[key_index]
 
         # Traverse inorder, check left child first
-        check_inorder(node[1], key_index)
+        check_inorder(node[1])
 
         # Check that tree is inorder (i.e. ascending in value)
         if node[0] > results[-1]:
             # Node value in order, add current node value to list
             results.append(node[0])
         else:
+
             if node[0] == results[-1]:
 
                 if node[1] == -1:
-                    # Current node is right child, meaning duplicate is in correct order; add node to list
                     results.append(node[0])
                 else:
-                    # Duplicate came from left child subtree, error found
                     correct_tree[0] = False
                     return
             else:
@@ -41,12 +38,9 @@ def is_bst(tree, nodes):
                 return
 
         # Check right child
-        check_inorder(node[2], key_index)
+        check_inorder(node[2])
 
         return
-
-    # Initialize parent node array
-    parents = [-1 for _ in range(nodes)]
 
     # Initialize results, start with negative infinity for first leaf value comparison
     results = [float("-inf")]
@@ -55,7 +49,7 @@ def is_bst(tree, nodes):
     correct_tree = [True]
 
     # Start search with root index
-    check_inorder(0, -1)
+    check_inorder(0)
 
     return correct_tree[0]
 
@@ -75,7 +69,7 @@ def main():
     if len(tree) > 0:
 
         # Check if tree is a valid binary search tree
-        if is_bst(tree, nodes):
+        if is_bst(tree):
             print("CORRECT")
         else:
             print("INCORRECT")
