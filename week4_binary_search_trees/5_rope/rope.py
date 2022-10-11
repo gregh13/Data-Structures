@@ -2,14 +2,18 @@
 
 import sys
 
+
 class Rope:
 	def __init__(self, s):
 		self.s = s
+
 	def result(self):
 		return self.s
+
 	def process(self, i, j, k):
-                # Write your code here
-                
+		# Write your code here
+		pass
+
 
 rope = Rope(sys.stdin.readline().strip())
 q = int(sys.stdin.readline())
