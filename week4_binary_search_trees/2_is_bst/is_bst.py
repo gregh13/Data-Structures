@@ -4,7 +4,7 @@ import sys
 import threading
 
 sys.setrecursionlimit(10**7)  # max depth of recursion
-threading.stack_size(2**25)   # new thread will get stack of such size
+threading.stack_size(2**27)   # new thread will get stack of such size
 
 
 def is_bst(tree):
