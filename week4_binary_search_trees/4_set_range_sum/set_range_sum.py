@@ -281,7 +281,7 @@ def sum(fr, to):
     return ans
 
 
-def print_tree(v, placement):
+def print_tree(order, v, placement):
     def get_inorder(vertex):
         # Check if null child node
         if vertex is None:
@@ -293,8 +293,25 @@ def print_tree(v, placement):
         get_inorder(vertex.right)
         return
 
+    def get_postorder(vertex):
+        # Check if null child node
+        if vertex is None:
+            return
+
+        # Traverse to left child, then parent, then right child
+        get_inorder(vertex.left)
+        get_inorder(vertex.right)
+        results.append(vertex.key)
+        return
+
     results = []
-    get_inorder(v)
+    if order == "in":
+        get_inorder(v)
+    elif order == "post":
+        get_postorder(v)
+    else:
+        results = ["You forgot to add the order parameter!"]
+
     print(placement, *results)
     return
 
