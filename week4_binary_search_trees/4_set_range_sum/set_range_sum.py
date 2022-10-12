@@ -162,6 +162,17 @@ def insert(x):
 
 
 
+def erase(x):
+    global root
+    result, root = find(root, x)
+    if result.key == x:
+        # Key is in tree, need to delete
+        find(root, x+1)
+        splay(result)
+
+    else:
+        # Key isn't in tree, nothing to delete
+        pass
 
 
 def search(x):
