@@ -163,14 +163,15 @@ def insert(x):
 
 def remove(v):
     parent = v.parent
+
     if v.left is None:
         # v is a leaf, easy delete
-        v.parent = None
         if v.key < parent.key:
             parent.left = None
         else:
             parent.right = None
     else:
+        # promote v.left
         v_left_child = v.left
         v_left_child.parent = parent
         if v_left_child.key < parent.key:
@@ -178,10 +179,10 @@ def remove(v):
         else:
             parent.right = v_left_child
 
+    del v
 
 
-
-def delete(v):
+def delete_vertex(v):
     global root
     if v.right is None:
         remove(v)
@@ -189,15 +190,30 @@ def delete(v):
         next_biggest, root = find(root, v.key + 1)
         if next_biggest.left is not None:
             print("Delete: Left child is not None!")
+        # Replace v with next_biggest
+        v.key = next_biggest.key
+        update(v)    # Maybe need to update from bottom up?? Possible call splay on next_biggest? Already did above???
+
+        # Promote next_biggest.right
+        parent = next_biggest.parent
+        promoted_right = next_biggest.right
+        promoted_right.parent = parent
+        if promoted_right.key < parent.key:
+            parent.left = promoted_right
+        else:
+            parent.right = promoted_right
+
+        del next_biggest
+
 
 def erase(x):
     global root
     result, root = find(root, x)
     if result.key == x:
-        # Key is in tree, need to delete
+        # Key is in tree, need to delete_vertex
         find(root, x+1)
         splay(result)
-
+        delete_vertex(result)
     else:
         # Key isn't in tree, nothing to delete
         pass
