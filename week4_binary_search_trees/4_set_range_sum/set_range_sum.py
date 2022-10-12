@@ -130,7 +130,8 @@ root = None
 
 def insert(x):
     global root
-    print_tree(root, "Before Insert: ")
+    print_tree("in", root, "Before Insert (inorder): ")
+    print_tree("post", root, "Before Insert (post order): ")
     new_vertex = Vertex(x, x, None, None, None)
     if root is None:
         # First vertex of tree
@@ -139,7 +140,8 @@ def insert(x):
 
     parent, root = find(root, x)
 
-    print_tree(root, "After Insert 1st Find: ")
+    print_tree("in", root, "After Insert 1st Find (inorder): ")
+    print_tree("post", root, "After Insert 1st Find (post order): ")
 
     if parent is None:
         # x is larger than any key in set. find(root, x) splayed last biggest key to root
@@ -163,7 +165,8 @@ def insert(x):
 
     _, root = find(root, x)
 
-    print_tree(root, "After Insert 2nd Find: ")
+    print_tree("in", root, "After Insert 2nd Find (inorder): ")
+    print_tree("post", root, "After Insert 2nd Find (post order): ")
 
 
     return
@@ -179,13 +182,14 @@ def insert(x):
 
 
 def remove(v):
+    global root
     parent = v.parent
 
     if parent is None:
         # Removing the root vertex
         # Vertex doesn't have a right child (see delete_vertex), so just make v.left new root
-        new_root = v.left
-        new_root.parent = None
+        root = v.left
+        root.parent = None
 
     elif v.left is None:
         # v is a leaf, easy delete
@@ -207,7 +211,8 @@ def remove(v):
 
 def delete_vertex(v):
     global root
-    print_tree(root, "Before Delete: ")
+    print_tree("in", root, "Before Delete (inorder): ")
+    print_tree("post", root, "Before Delete (post order): ")
     if v.right is None:
         remove(v)
     else:
@@ -236,12 +241,14 @@ def delete_vertex(v):
 
         del next_biggest
 
-        print_tree(root, "After Delete: ")
+    print_tree("in", root, "After Delete (inorder): ")
+    print_tree("post", root, "After Delete (post order): ")
 
 
 def erase(x):
     global root
-    print_tree(root, "Before Erase: ")
+    print_tree("in", root, "Before Erase (inorder): ")
+    print_tree("post", root, "Before Erase (post order): ")
     result, root = find(root, x)
     if result is None:
         # x is larger than any element in tree, no next value
@@ -254,12 +261,17 @@ def erase(x):
     else:
         # Key isn't in tree, nothing to delete
         pass
-    print_tree(root, "After Erase: ")
+    print_tree("in", root, "After Erase (inorder): ")
+    print_tree("post", root, "After Erase (post order): ")
 
 
 def search(x):
     global root
+    print_tree("in", root, "Before Search (inorder): ")
+    print_tree("post", root, "Before Search (post order): ")
     result, root = find(root, x)
+    print_tree("in", root, "After Search (inorder): ")
+    print_tree("post", root, "After Search (post order): ")
     if root is not None:
         if root.key == x:
             return True
