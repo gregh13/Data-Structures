@@ -130,6 +130,10 @@ root = None
 
 def insert(x):
     global root
+    print("-------\n")
+    print("Insert: ", x)
+    if root is not None:
+        print("root: ", root.key, root.parent, root.left, root.right, root.sum)
     print_tree("in", root, "Before Insert (inorder): ")
     print_tree("post", root, "Before Insert (post order): ")
     new_vertex = Vertex(x, x, None, None, None)
@@ -137,9 +141,8 @@ def insert(x):
         # First vertex of tree
         root = new_vertex
         return
-    print_tree("post", root, "Before Insert Find (post order): ")
-    print("x: ", x)
-    print("root: ", root.key, root.parent, root.left, root.right, root.sum)
+    print_tree("post", root, "Before Insert 1st Find (post order): ")
+
     parent, root = find(root, x)
 
     print_tree("in", root, "After Insert 1st Find (inorder): ")
@@ -152,10 +155,12 @@ def insert(x):
         root.right = new_vertex
         new_vertex.parent = root
     elif x < parent.key:
-        if parent.left is not None:
+        left_child = parent.left
+        if left_child is not None:
             print("Insert: Left child not None!")
         parent.left = new_vertex
         new_vertex.parent = parent
+        new_vertex.left = left_child
     elif x > parent.key:
         if parent.right is not None:
             print("Insert: Right child not None!")
@@ -189,9 +194,12 @@ def remove(v):
 
     if parent is None:
         # Removing the root vertex
-        # Vertex doesn't have a right child (see delete_vertex), so just make v.left new root
-        root = v.left
-        root.parent = None
+        # Vertex doesn't have a right child (see delete_vertex), so just make v.left new root (if any)
+        if v.left is not None:
+            root = v.left
+            root.parent = None
+        else:
+            root = None
 
     elif v.left is None:
         # v is a leaf, easy delete
@@ -256,10 +264,12 @@ def delete_vertex(v):
 
 def erase(x):
     global root
+    print("-------\n")
+    print("Erase: ", x)
+    if root is not None:
+        print("root: ", root.key, root.parent, root.left, root.right, root.sum)
     print_tree("in", root, "Before Erase (inorder): ")
     print_tree("post", root, "Before Erase (post order): ")
-    print("x: ", x)
-    print("root: ", root.key, root.parent, root.left, root.right, root.sum)
     result, root = find(root, x)
     if result is None:
         # x is larger than any element in tree, no next value
@@ -278,10 +288,12 @@ def erase(x):
 
 def search(x):
     global root
+    print("-------\n")
+    print("Search: ", x)
+    if root is not None:
+        print("root: ", root.key, root.parent, root.left, root.right, root.sum)
     print_tree("in", root, "Before Search (inorder): ")
     print_tree("post", root, "Before Search (post order): ")
-    print("x: ", x)
-    print("root: ", root.key, root.parent, root.left, root.right, root.sum)
     result, root = find(root, x)
     print_tree("in", root, "After Search (inorder): ")
     print_tree("post", root, "After Search (post order): ")
@@ -341,7 +353,7 @@ def print_tree(order, v, placement):
     return
 
 
-print("\n\n---------------\n\n")
+print("\n\n-----------------------------------------------------------------------------\n\n")
 MODULO = 1000000001
 n = int(stdin.readline())
 last_sum_result = 0
