@@ -161,11 +161,30 @@ def insert(x):
 #     root = merge(merge(left, new_vertex), right)
 
 
+def remove(v):
+    parent = v.parent
+    if v.left is None:
+        # v is a leaf, easy delete
+        v.parent = None
+        if v.key < parent.key:
+            parent.left = None
+        else:
+            parent.right = None
+    else:
+        v_left_child = v.left
+        v_left_child.parent = parent
+        if v_left_child.key < parent.key:
+            parent.left = v_left_child
+        else:
+            parent.right = v_left_child
+
+
+
 
 def delete(v):
     global root
     if v.right is None:
-        pass
+        remove(v)
     else:
         next_biggest, root = find(root, v.key + 1)
         if next_biggest.left is not None:
