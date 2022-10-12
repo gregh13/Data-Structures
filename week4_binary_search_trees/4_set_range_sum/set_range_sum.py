@@ -266,6 +266,8 @@ def delete_vertex(v):
             else:
                 parent.right = promoted_right
 
+        update(v)
+
         del next_biggest
 
     # print_tree("in", root, "After Delete (inorder): ")
