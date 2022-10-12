@@ -216,14 +216,18 @@ def delete_vertex(v):
         v.key = next_biggest.key
         update(v)    # Maybe need to update from bottom up?? Possible call splay on next_biggest? Already did above???
 
-        # Promote next_biggest.right
-        parent = next_biggest.parent
-        promoted_right = next_biggest.right
-        promoted_right.parent = parent
-        if promoted_right.key < parent.key:
-            parent.left = promoted_right
+        # Promote next_biggest.right (if any)
+        if next_biggest.right is None:
+            # Nothing to promote
+            pass
         else:
-            parent.right = promoted_right
+            parent = next_biggest.parent
+            promoted_right = next_biggest.right
+            promoted_right.parent = parent
+            if promoted_right.key < parent.key:
+                parent.left = promoted_right
+            else:
+                parent.right = promoted_right
 
         del next_biggest
 
