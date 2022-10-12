@@ -310,6 +310,32 @@ def search(x):
 
 def range_sum(start, end):
     global root
+    if root is None:
+        # No tree
+        return 0
+
+    left_subtrahend = 0
+    right_subtrahend = 0
+    total_sum = 0
+
+    result_1, root = find(root, start)
+
+    if result_1 is None:
+        # All keys in tree are smaller than range
+        return 0
+
+    total_sum = root.sum
+
+    if result_1.key > root.key:
+        total_sum = result_1.sum
+    else:
+        # result_1 is root and its key == start
+        if result_1.left is not None:
+            left_subtrahend = result_1.left.sum
+
+
+
+
 
 
 
