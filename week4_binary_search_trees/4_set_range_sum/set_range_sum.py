@@ -137,7 +137,9 @@ def insert(x):
         # First vertex of tree
         root = new_vertex
         return
-
+    print_tree("post", root, "Before Insert Find (post order): ")
+    print("x: ", x)
+    print("root: ", root.key, root.parent, root.left, root.right, root.sum)
     parent, root = find(root, x)
 
     print_tree("in", root, "After Insert 1st Find (inorder): ")
@@ -214,8 +216,10 @@ def delete_vertex(v):
     print_tree("in", root, "Before Delete (inorder): ")
     print_tree("post", root, "Before Delete (post order): ")
     if v.right is None:
+        print("REMOVE")
         remove(v)
     else:
+        print("NEXT_BIGGEST")
         next_biggest, root = find(root, v.key + 1)
         # Bring vertex to delete back to top (should just be one case of zig)
         splay(v)
@@ -229,8 +233,10 @@ def delete_vertex(v):
         # Promote next_biggest.right (if any)
         if next_biggest.right is None:
             # Nothing to promote
+            print("No Promo")
             pass
         else:
+            print("PROMOTION")
             parent = next_biggest.parent
             promoted_right = next_biggest.right
             promoted_right.parent = parent
@@ -249,6 +255,8 @@ def erase(x):
     global root
     print_tree("in", root, "Before Erase (inorder): ")
     print_tree("post", root, "Before Erase (post order): ")
+    print("x: ", x)
+    print("root: ", root.key, root.parent, root.left, root.right, root.sum)
     result, root = find(root, x)
     if result is None:
         # x is larger than any element in tree, no next value
@@ -269,6 +277,8 @@ def search(x):
     global root
     print_tree("in", root, "Before Search (inorder): ")
     print_tree("post", root, "Before Search (post order): ")
+    print("x: ", x)
+    print("root: ", root.key, root.parent, root.left, root.right, root.sum)
     result, root = find(root, x)
     print_tree("in", root, "After Search (inorder): ")
     print_tree("post", root, "After Search (post order): ")
