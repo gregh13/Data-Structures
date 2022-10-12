@@ -177,7 +177,13 @@ def insert(x):
 def remove(v):
     parent = v.parent
 
-    if v.left is None:
+    if parent is None:
+        # Removing the root vertex
+        # Vertex doesn't have a right child (see delete_vertex), so just make v.left new root
+        new_root = v.left
+        new_root.parent = None
+
+    elif v.left is None:
         # v is a leaf, easy delete
         if v.key < parent.key:
             parent.left = None
@@ -201,6 +207,9 @@ def delete_vertex(v):
         remove(v)
     else:
         next_biggest, root = find(root, v.key + 1)
+        # Bring vertex to delete back to top (should just be one case of zig)
+        splay(v)
+
         if next_biggest.left is not None:
             print("Delete: Left child is not None!")
         # Replace v with next_biggest
