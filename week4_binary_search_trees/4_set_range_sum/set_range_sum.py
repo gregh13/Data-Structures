@@ -130,50 +130,54 @@ root = None
 
 def insert(x):
     global root
-    print("-------\n")
-    print("Insert: ", x)
-    if root is not None:
-        print("root: ", root.key, root.parent, root.left, root.right, root.sum)
-    print_tree("in", root, "Before Insert (inorder): ")
-    print_tree("post", root, "Before Insert (post order): ")
+    # print("-------\n")
+    # print("Insert: ", x)
+    # if root is not None:
+    # #     print("root: ", root.key, root.parent, root.left, root.right, root.sum)
+    # print_tree("in", root, "Before Insert (inorder): ")
+    # print_tree("post", root, "Before Insert (post order): ")
     new_vertex = Vertex(x, x, None, None, None)
     if root is None:
         # First vertex of tree
         root = new_vertex
         return
-    print_tree("post", root, "Before Insert 1st Find (post order): ")
+    # print_tree("post", root, "Before Insert 1st Find (post order): ")
 
     parent, root = find(root, x)
 
-    print_tree("in", root, "After Insert 1st Find (inorder): ")
-    print_tree("post", root, "After Insert 1st Find (post order): ")
+    # print_tree("in", root, "After Insert 1st Find (inorder): ")
+    # print_tree("post", root, "After Insert 1st Find (post order): ")
 
     if parent is None:
         # x is larger than any key in set. find(root, x) splayed last biggest key to root
-        if root.right is not None:
-            print("Insert: Right child not None!")
+        # if root.right is not None:
+        #     print("Insert: Right child not None!")
         root.right = new_vertex
         new_vertex.parent = root
     elif x < parent.key:
         left_child = parent.left
-        if left_child is not None:
-            print("Insert: Left child not None!")
+        # if left_child is not None:
+            # print("Insert: Left child not None!")
         parent.left = new_vertex
         new_vertex.parent = parent
         new_vertex.left = left_child
+        update(new_vertex)
+        update(parent)
     elif x > parent.key:
-        if parent.right is not None:
-            print("Insert: Right child not None!")
+        # if parent.right is not None:
+            # print("Insert: Right child not None!")
         parent.right = new_vertex
         new_vertex.parent = parent
+        update(new_vertex)
+        update(parent)
     else:
         # Already in tree, don't need to insert
         pass
 
     _, root = find(root, x)
 
-    print_tree("in", root, "After Insert 2nd Find (inorder): ")
-    print_tree("post", root, "After Insert 2nd Find (post order): ")
+    # print_tree("in", root, "After Insert 2nd Find (inorder): ")
+    # print_tree("post", root, "After Insert 2nd Find (post order): ")
 
 
     return
@@ -221,33 +225,33 @@ def remove(v):
 
 def delete_vertex(v):
     global root
-    print_tree("in", root, "Before Delete (inorder): ")
-    print_tree("post", root, "Before Delete (post order): ")
+    # print_tree("in", root, "Before Delete (inorder): ")
+    # print_tree("post", root, "Before Delete (post order): ")
     if v.right is None:
-        print("REMOVE")
+        # print("REMOVE")
         remove(v)
     else:
-        print("NEXT_BIGGEST")
+        # print("NEXT_BIGGEST")
         next_biggest, root = find(root, v.key + 1)
         # Bring vertex to delete back to top (should just be one case of zig)
-        print_tree("post", root, "Before Delete Splay (post order): ")
+        # print_tree("post", root, "Before Delete Splay (post order): ")
         root = splay(v)
-        print_tree("post", root, "After Delete Splay (post order): ")
-        if next_biggest.left is not None:
-            print("Delete: Left child is not None!")
+        # print_tree("post", root, "After Delete Splay (post order): ")
+        # if next_biggest.left is not None:
+            # print("Delete: Left child is not None!")
         # Replace v with next_biggest
         v.key = next_biggest.key
-        print("Next Biggest Key: ", next_biggest.key)
-        # update(v)    # Maybe need to update from bottom up?? Possible call splay on next_biggest? Already did above???
+        # print("Next Biggest Key: ", next_biggest.key)
+        # Maybe need to update from bottom up?? Possible call splay on next_biggest? Already did above???
 
         # Promote next_biggest.right (if any)
         if next_biggest.right is None:
             # Nothing to promote
-            print("No Promo")
+            # print("No Promo")
             v.right = None
             pass
         else:
-            print("PROMOTION")
+            # print("PROMOTION")
             parent = next_biggest.parent
             promoted_right = next_biggest.right
             promoted_right.parent = parent
@@ -258,18 +262,18 @@ def delete_vertex(v):
 
         del next_biggest
 
-    print_tree("in", root, "After Delete (inorder): ")
-    print_tree("post", root, "After Delete (post order): ")
+    # print_tree("in", root, "After Delete (inorder): ")
+    # print_tree("post", root, "After Delete (post order): ")
 
 
 def erase(x):
     global root
-    print("-------\n")
-    print("Erase: ", x)
-    if root is not None:
-        print("root: ", root.key, root.parent, root.left, root.right, root.sum)
-    print_tree("in", root, "Before Erase (inorder): ")
-    print_tree("post", root, "Before Erase (post order): ")
+    # print("-------\n")
+    # print("Erase: ", x)
+    # if root is not None:
+    # #     print("root: ", root.key, root.parent, root.left, root.right, root.sum)
+    # print_tree("in", root, "Before Erase (inorder): ")
+    # print_tree("post", root, "Before Erase (post order): ")
     result, root = find(root, x)
     if result is None:
         # x is larger than any element in tree, no next value
@@ -282,21 +286,21 @@ def erase(x):
     else:
         # Key isn't in tree, nothing to delete
         pass
-    print_tree("in", root, "After Erase (inorder): ")
-    print_tree("post", root, "After Erase (post order): ")
+    # print_tree("in", root, "After Erase (inorder): ")
+    # print_tree("post", root, "After Erase (post order): ")
 
 
 def search(x):
     global root
-    print("-------\n")
-    print("Search: ", x)
-    if root is not None:
-        print("root: ", root.key, root.parent, root.left, root.right, root.sum)
-    print_tree("in", root, "Before Search (inorder): ")
-    print_tree("post", root, "Before Search (post order): ")
+    # print("-------\n")
+    # print("Search: ", x)
+    # if root is not None:
+    # #     print("root: ", root.key, root.parent, root.left, root.right, root.sum)
+    # print_tree("in", root, "Before Search (inorder): ")
+    # print_tree("post", root, "Before Search (post order): ")
     result, root = find(root, x)
-    print_tree("in", root, "After Search (inorder): ")
-    print_tree("post", root, "After Search (post order): ")
+    # print_tree("in", root, "After Search (inorder): ")
+    # print_tree("post", root, "After Search (post order): ")
     if root is not None:
         if root.key == x:
             return True
@@ -310,6 +314,15 @@ def search(x):
 
 def range_sum(start, end):
     global root
+    # print("-------\n")
+    # print(f"Sum Range: {start} to {end}")
+    # if root is not None:
+    # #     print("root: ", root.key, root.parent, root.left, root.right, root.sum)
+    # print_tree("in", root, "Before SUM (inorder): ")
+    # print_tree("post", root, "Before SUM (post order): ")
+
+    # print_tree("in", root, "After SUM (inorder): ")
+    # print_tree("post", root, "After SUM (post order): ")
 
     left_subtrahend = 0
     right_subtrahend = 0
@@ -357,9 +370,6 @@ def range_sum(start, end):
     return total_sum
 
 
-
-
-
 # def sum(fr, to):
 #     global root
 #     left, middle = split(root, fr)
@@ -405,7 +415,7 @@ def print_tree(order, v, placement):
     return
 
 
-print("\n\n-----------------------------------------------------------------------------\n\n")
+# print("\n\n-----------------------------------------------------------------------------\n\n")
 MODULO = 1000000001
 n = int(stdin.readline())
 last_sum_result = 0
@@ -423,6 +433,6 @@ for i in range(n):
     elif line[0] == 's':
         l = int(line[1])
         r = int(line[2])
-        res = sum((l + last_sum_result) % MODULO, (r + last_sum_result) % MODULO)
+        res = range_sum((l + last_sum_result) % MODULO, (r + last_sum_result) % MODULO)
         print(res)
         last_sum_result = res % MODULO
