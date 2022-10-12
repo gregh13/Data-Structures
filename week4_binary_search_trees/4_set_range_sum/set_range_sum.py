@@ -154,6 +154,7 @@ def insert(x):
         #     print("Insert: Right child not None!")
         root.right = new_vertex
         new_vertex.parent = root
+        update(root)
     elif x < parent.key:
         left_child = parent.left
         # if left_child is not None:
@@ -209,8 +210,11 @@ def remove(v):
         # v is a leaf, easy delete
         if v.key < parent.key:
             parent.left = None
+
         else:
             parent.right = None
+
+        update(parent)
     else:
         # promote v.left
         v_left_child = v.left
@@ -219,6 +223,8 @@ def remove(v):
             parent.left = v_left_child
         else:
             parent.right = v_left_child
+
+        update(parent)
 
     del v
 
