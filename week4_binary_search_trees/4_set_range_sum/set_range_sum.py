@@ -135,12 +135,12 @@ def insert(x):
 
     if x < parent.key:
         if parent.left is not None:
-            print("Left child not none!")
+            print("Insert: Left child not None!")
         parent.left = new_vertex
         new_vertex.parent = parent
     elif x > parent.key:
         if parent.right is not None:
-            print("Right child not none!")
+            print("Insert: Right child not None!")
         parent.right = new_vertex
         new_vertex.parent = parent
     else:
@@ -161,6 +161,15 @@ def insert(x):
 #     root = merge(merge(left, new_vertex), right)
 
 
+
+def delete(v):
+    global root
+    if v.right is None:
+        pass
+    else:
+        next_biggest, root = find(root, v.key + 1)
+        if next_biggest.left is not None:
+            print("Delete: Left child is not None!")
 
 def erase(x):
     global root
