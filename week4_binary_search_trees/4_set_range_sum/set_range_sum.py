@@ -308,14 +308,19 @@ def search(x):
         return False
 
 
-def sum(fr, to):
+def range_sum(start, end):
     global root
-    left, middle = split(root, fr)
-    middle, right = split(middle, to + 1)
-    ans = 0
-    # Complete the implementation of sum
 
-    return ans
+
+
+# def sum(fr, to):
+#     global root
+#     left, middle = split(root, fr)
+#     middle, right = split(middle, to + 1)
+#     ans = 0
+#     # Complete the implementation of sum
+#
+#     return ans
 
 
 def print_tree(order, v, placement):
