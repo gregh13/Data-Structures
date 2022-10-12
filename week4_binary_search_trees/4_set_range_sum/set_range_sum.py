@@ -6,7 +6,7 @@ from sys import stdin
 # Vertex of a splay tree
 class Vertex:
     def __init__(self, key, sum, left, right, parent):
-        (self.key, self.sum, self.left, self.right, self.parent) = (key, sum, left, right, parent)
+        self.key, self.sum, self.left, self.right, self.parent = key, sum, left, right, parent
 
 
 def update(v):
@@ -130,17 +130,38 @@ root = None
 
 def insert(x):
     global root
-    (left, right) = split(root, x)
-    new_vertex = None
-    if right is None or right.key != x:
-        new_vertex = Vertex(x, x, None, None, None)
-    root = merge(merge(left, new_vertex), right)
+    new_vertex = Vertex(x, x, None, None, None)
+    parent, root = find(root, x)
+
+    if x < parent.key:
+        if parent.left is not None:
+            print("Left child not none!")
+        parent.left = new_vertex
+        new_vertex.parent = parent
+    elif x > parent.key:
+        if parent.right is not None:
+            print("Right child not none!")
+        parent.right = new_vertex
+        new_vertex.parent = parent
+    else:
+        # Already in tree, don't need to insert
+        pass
+
+    find(root, x)
 
 
-def erase(x):
-    global root
-    # Implement erase yourself
-    pass
+
+
+# def insert(x):
+#     global root
+#     left, right = split(root, x)
+#     new_vertex = None
+#     if right is None or right.key != x:
+#         new_vertex = Vertex(x, x, None, None, None)
+#     root = merge(merge(left, new_vertex), right)
+
+
+
 
 
 def search(x):
@@ -152,8 +173,8 @@ def search(x):
 
 def sum(fr, to):
     global root
-    (left, middle) = split(root, fr)
-    (middle, right) = split(middle, to + 1)
+    left, middle = split(root, fr)
+    middle, right = split(middle, to + 1)
     ans = 0
     # Complete the implementation of sum
 
