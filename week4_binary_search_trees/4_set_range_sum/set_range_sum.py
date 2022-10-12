@@ -130,6 +130,7 @@ root = None
 
 def insert(x):
     global root
+    print_tree(root, "Before Insert: ")
     new_vertex = Vertex(x, x, None, None, None)
     if root is None:
         # First vertex of tree
@@ -137,6 +138,8 @@ def insert(x):
         return
 
     parent, root = find(root, x)
+
+    print_tree(root, "After Insert 1st Find: ")
 
     if parent is None:
         # x is larger than any key in set. find(root, x) splayed last biggest key to root
@@ -158,7 +161,10 @@ def insert(x):
         # Already in tree, don't need to insert
         pass
 
-    find(root, x)
+    _, root = find(root, x)
+
+    print_tree(root, "After Insert 2nd Find: ")
+
 
     return
 
@@ -201,6 +207,7 @@ def remove(v):
 
 def delete_vertex(v):
     global root
+    print_tree(root, "Before Delete: ")
     if v.right is None:
         remove(v)
     else:
@@ -229,9 +236,12 @@ def delete_vertex(v):
 
         del next_biggest
 
+        print_tree(root, "After Delete: ")
+
 
 def erase(x):
     global root
+    print_tree(root, "Before Erase: ")
     result, root = find(root, x)
     if result is None:
         # x is larger than any element in tree, no next value
@@ -244,6 +254,7 @@ def erase(x):
     else:
         # Key isn't in tree, nothing to delete
         pass
+    print_tree(root, "After Erase: ")
 
 
 def search(x):
@@ -270,7 +281,7 @@ def sum(fr, to):
     return ans
 
 
-def print_tree(v):
+def print_tree(v, placement):
     def get_inorder(vertex):
         # Check if null child node
         if vertex is None:
@@ -284,7 +295,7 @@ def print_tree(v):
 
     results = []
     get_inorder(v)
-    print("Tree Order: ", *results)
+    print(placement, *results)
     return
 
 
