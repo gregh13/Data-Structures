@@ -163,8 +163,6 @@ def insert(x):
     return
 
 
-
-
 # def insert(x):
 #     global root
 #     left, right = split(root, x)
@@ -251,6 +249,9 @@ def erase(x):
 def search(x):
     global root
     result, root = find(root, x)
+    if root is not None:
+        if root.key == x:
+            return True
     if result is None:
         return False
     if result.key == x:
@@ -267,6 +268,19 @@ def sum(fr, to):
     # Complete the implementation of sum
 
     return ans
+
+
+def get_inorder(vertex):
+    # Check if null child node
+    if vertex is None:
+        return
+
+    # Traverse to left child, then parent, then right child
+    get_inorder(vertex.left)
+    print(vertex.key)
+    get_inorder(vertex.right)
+
+    return
 
 
 MODULO = 1000000001
