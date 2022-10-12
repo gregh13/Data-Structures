@@ -270,16 +270,21 @@ def sum(fr, to):
     return ans
 
 
-def get_inorder(vertex):
-    # Check if null child node
-    if vertex is None:
+def print_tree(v):
+    def get_inorder(vertex):
+        # Check if null child node
+        if vertex is None:
+            return
+
+        # Traverse to left child, then parent, then right child
+        get_inorder(vertex.left)
+        results.append(vertex.key)
+        get_inorder(vertex.right)
         return
 
-    # Traverse to left child, then parent, then right child
-    get_inorder(vertex.left)
-    print(vertex.key)
-    get_inorder(vertex.right)
-
+    results = []
+    get_inorder(v)
+    print("Tree Order: ", *results)
     return
 
 
