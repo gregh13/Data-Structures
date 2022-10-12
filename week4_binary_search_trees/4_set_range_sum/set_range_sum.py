@@ -222,18 +222,21 @@ def delete_vertex(v):
         print("NEXT_BIGGEST")
         next_biggest, root = find(root, v.key + 1)
         # Bring vertex to delete back to top (should just be one case of zig)
-        splay(v)
-
+        print_tree("post", root, "Before Delete Splay (post order): ")
+        root = splay(v)
+        print_tree("post", root, "After Delete Splay (post order): ")
         if next_biggest.left is not None:
             print("Delete: Left child is not None!")
         # Replace v with next_biggest
         v.key = next_biggest.key
-        update(v)    # Maybe need to update from bottom up?? Possible call splay on next_biggest? Already did above???
+        print("Next Biggest Key: ", next_biggest.key)
+        # update(v)    # Maybe need to update from bottom up?? Possible call splay on next_biggest? Already did above???
 
         # Promote next_biggest.right (if any)
         if next_biggest.right is None:
             # Nothing to promote
             print("No Promo")
+            v.right = None
             pass
         else:
             print("PROMOTION")
@@ -264,7 +267,7 @@ def erase(x):
     if result.key == x:
         # Key is in tree, need to delete_vertex
         find(root, x+1)
-        splay(result)
+        root = splay(result)
         delete_vertex(result)
     else:
         # Key isn't in tree, nothing to delete
@@ -338,6 +341,7 @@ def print_tree(order, v, placement):
     return
 
 
+print("\n\n---------------\n\n")
 MODULO = 1000000001
 n = int(stdin.readline())
 last_sum_result = 0
