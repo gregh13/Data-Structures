@@ -131,9 +131,20 @@ root = None
 def insert(x):
     global root
     new_vertex = Vertex(x, x, None, None, None)
+    if root is None:
+        # First vertex of tree
+        root = new_vertex
+        return
+
     parent, root = find(root, x)
 
-    if x < parent.key:
+    if parent is None:
+        # x is larger than any key in set. find(root, x) splayed last biggest key to root
+        if root.right is not None:
+            print("Insert: Right child not None!")
+        root.right = new_vertex
+        new_vertex.parent = root
+    elif x < parent.key:
         if parent.left is not None:
             print("Insert: Left child not None!")
         parent.left = new_vertex
@@ -148,6 +159,8 @@ def insert(x):
         pass
 
     find(root, x)
+
+    return
 
 
 
@@ -209,6 +222,9 @@ def delete_vertex(v):
 def erase(x):
     global root
     result, root = find(root, x)
+    if result is None:
+        # x is larger than any element in tree, no next value
+        return
     if result.key == x:
         # Key is in tree, need to delete_vertex
         find(root, x+1)
