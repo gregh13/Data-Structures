@@ -237,9 +237,13 @@ def erase(x):
 
 def search(x):
     global root
-    # Implement find yourself
-
-    return False
+    result, root = find(root, x)
+    if result is None:
+        return False
+    if result.key == x:
+        return True
+    else:
+        return False
 
 
 def sum(fr, to):
