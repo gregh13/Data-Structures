@@ -130,23 +130,14 @@ root = None
 
 def insert(x):
     global root
-    # print("-------\n")
-    # print("Insert: ", x)
-    # if root is not None:
-    # # #     print("root: ", root.key, root.parent, root.left, root.right, root.sum)
-    # print_tree("in", root, "Before Insert (inorder): ")
-    # print_tree("post", root, "Before Insert (post order): ")
     new_vertex = Vertex(x, x, None, None, None)
     if root is None:
         # First vertex of tree
         root = new_vertex
         return
-    # print_tree("post", root, "Before Insert 1st Find (post order): ")
 
     parent, root = find(root, x)
 
-    # print_tree("in", root, "After Insert 1st Find (inorder): ")
-    # print_tree("post", root, "After Insert 1st Find (post order): ")
 
     if parent is None:
         # x is larger than any key in set. find(root, x) splayed last biggest key to root
@@ -171,8 +162,6 @@ def insert(x):
 
     _, root = find(root, x)
 
-    # print_tree("in", root, "After Insert 2nd Find (inorder): ")
-    # print_tree("post", root, "After Insert 2nd Find (post order): ")
 
 
     return
@@ -225,31 +214,26 @@ def remove(v):
 
 def delete_vertex(v):
     global root
-    # print_tree("in", root, "Before Delete (inorder): ")
-    # print_tree("post", root, "Before Delete (post order): ")
     if v.right is None:
-        # print("REMOVE")
+
         remove(v)
     else:
-        # print("NEXT_BIGGEST")
+
         next_biggest, root = find(root, v.key + 1)
         # Bring vertex to delete back to top (should just be one case of zig)
-        # print_tree("post", root, "Before Delete Splay (post order): ")
+
         root = splay(v)
-        # print_tree("post", root, "After Delete Splay (post order): ")
+
         # Replace v with next_biggest
         v.key = next_biggest.key
-        # print("Next Biggest Key: ", next_biggest.key)
-        # Maybe need to update from bottom up?? Possible call splay on next_biggest? Already did above???
 
         # Promote next_biggest.right (if any)
         if next_biggest.right is None:
-            # Nothing to promote
-            # print("No Promo")
+            # Nothing to promote, update root accordingly
             v.right = None
             pass
         else:
-            # print("PROMOTION")
+
             parent = next_biggest.parent
             promoted_right = next_biggest.right
             promoted_right.parent = parent
@@ -262,18 +246,10 @@ def delete_vertex(v):
 
         del next_biggest
 
-    # print_tree("in", root, "After Delete (inorder): ")
-    # print_tree("post", root, "After Delete (post order): ")
 
 
 def erase(x):
     global root
-    # print("-------\n")
-    # print("Erase: ", x)
-    # if root is not None:
-    # # #     print("root: ", root.key, root.parent, root.left, root.right, root.sum)
-    # print_tree("in", root, "Before Erase (inorder): ")
-    # print_tree("post", root, "Before Erase (post order): ")
     result, root = find(root, x)
     if result is None:
         # x is larger than any element in tree, no next value
@@ -286,21 +262,11 @@ def erase(x):
     else:
         # Key isn't in tree, nothing to delete
         pass
-    # print_tree("in", root, "After Erase (inorder): ")
-    # print_tree("post", root, "After Erase (post order): ")
 
 
 def search(x):
     global root
-    # print("-------\n")
-    # print("Search: ", x)
-    # if root is not None:
-    # # #     print("root: ", root.key, root.parent, root.left, root.right, root.sum)
-    # print_tree("in", root, "Before Search (inorder): ")
-    # print_tree("post", root, "Before Search (post order): ")
     result, root = find(root, x)
-    # print_tree("in", root, "After Search (inorder): ")
-    # print_tree("post", root, "After Search (post order): ")
     if root is not None:
         if root.key == x:
             return True
@@ -314,12 +280,6 @@ def search(x):
 
 def range_sum(start, end):
     global root
-    # print("-------\n")
-    # print(f"Sum Range: {start} to {end}")
-    # if root is not None:
-    # # #     print("root: ", root.key, root.parent, root.left, root.right, root.sum)
-    # print_tree("in", root, "Before SUM (inorder): ")
-    # print_tree("post", root, "Before SUM (post order): ")
 
     left_subtrahend = 0
     right_subtrahend = 0
@@ -344,8 +304,6 @@ def range_sum(start, end):
             # Range is too small, no keys inside
             return total_sum
 
-    # print("root: ", root.parent, root.sum, root.key)
-    # print("Start_result: ", start_result.parent, start_result_val, start_result.sum)
 
     total_sum = root.sum
 
@@ -357,15 +315,12 @@ def range_sum(start, end):
 
     # Update total sum
     total_sum = total_sum - left_subtrahend
-    # print("total_sum after left update: ", total_sum)
     end_result, root = find(root, end)
 
     if end_result is None:
         # No key in tree is larger than range end
         return total_sum
 
-    # print("root: ", root.parent, root.key, root.sum)
-    # print("end_result: ", end_result.parent, end_result.key, end_result.sum)
     if root.key > end:
         # End is in between nodes, root.key is next largest (out of range)
         if root.left is not None:
@@ -377,8 +332,6 @@ def range_sum(start, end):
 
     total_sum = total_sum - right_subtrahend
 
-    # print_tree("in", root, "After SUM (inorder): ")
-    # print_tree("post", root, "After SUM (post order): ")
 
     return total_sum
 
@@ -428,7 +381,7 @@ def print_tree(order, v, placement):
     return
 
 
-# print("\n\n-----------------------------------------------------------------------------\n\n")
+print("\n\n-----------------------------------------------------------------------------\n\n")
 MODULO = 1000000001
 n = int(stdin.readline())
 last_sum_result = 0
