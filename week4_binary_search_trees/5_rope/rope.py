@@ -11,10 +11,12 @@ class Rope:
 		return self.s
 
 	def process(self, i, j, k):
+		# Use slicing to quickly cut and paste parts of a string
 		left_part = self.s[:i]
 		cut_part = self.s[i:j+1]
 		right_part = self.s[j+1:]
 		small_join = left_part + right_part
+		# k is the index number of the smaller join list where cut part needs to be inserted
 		new_left = small_join[:k]
 		new_right = small_join[k:]
 		self.s = new_left + cut_part + new_right
