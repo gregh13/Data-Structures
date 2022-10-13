@@ -157,11 +157,6 @@ def insert(x):
         # Update sums, starting from lower vertex
         update(new_vertex)
         update(parent)
-    elif x > parent.key:
-        # Add x as parent's right child
-        parent.right = new_vertex
-        new_vertex.parent = parent
-        update(parent)
     else:
         # Already in tree, don't need to insert anything
         pass
