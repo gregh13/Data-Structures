@@ -178,28 +178,28 @@ def insert(x):
 
 def remove(v):
     global root
+
     parent = v.parent
 
     if parent is None:
-        # Removing the root vertex
+        # This means vertex to remove is the root vertex
         # Vertex doesn't have a right child (see delete_vertex), so just make v.left new root (if any)
         if v.left is not None:
             root = v.left
             root.parent = None
         else:
+            # Was the only vertex in tree, now empty tree
             root = None
 
     elif v.left is None:
-        # v is a leaf, easy delete
+        # Vertex is a leaf, easy to delete
         if v.key < parent.key:
             parent.left = None
-
         else:
             parent.right = None
 
-        update(parent)
     else:
-        # promote v.left
+        # Promote v.left
         v_left_child = v.left
         v_left_child.parent = parent
         if v_left_child.key < parent.key:
@@ -207,8 +207,10 @@ def remove(v):
         else:
             parent.right = v_left_child
 
-        update(parent)
+    # Update sum value after vertex removal
+    update(parent)
 
+    # Remove vertex object from memory
     del v
 
 
