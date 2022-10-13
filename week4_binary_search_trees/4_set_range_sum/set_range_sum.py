@@ -164,6 +164,61 @@ def insert(x):
     return
 
 
+def erase(x):
+    global root
+    result, root = find(root, x)
+    if result is None:
+        # x is larger than any element in tree, no next value
+        return
+    if result.key == x:
+        # Key is in tree, need to delete_vertex
+        find(root, x+1)
+        root = splay(result)
+        delete_vertex(result)
+    else:
+        # Key isn't in tree, nothing to delete
+        pass
+
+
+def delete_vertex(v):
+    global root
+
+    if v.right is None:
+        remove(v)
+
+    else:
+        next_biggest, root = find(root, v.key + 1)
+
+        # Bring vertex to delete back to root
+        root = splay(v)
+
+        # Replace root with next_biggest
+        root.key = next_biggest.key
+
+        # Promote next_biggest.right (if any)
+        if next_biggest.right is None:
+            # Nothing to promote, update root accordingly
+            root.right = None
+            pass
+        else:
+            # Need to promote
+            parent = next_biggest.parent
+            promoted_right = next_biggest.right
+            promoted_right.parent = parent
+
+            # Check which child to put it under
+            if promoted_right.key < parent.key:
+                parent.left = promoted_right
+            else:
+                parent.right = promoted_right
+
+        # Update sum values after deletion
+        update(root)
+
+        # Remove vertex object from memory
+        del next_biggest
+
+
 def remove(v):
     global root
 
@@ -200,59 +255,6 @@ def remove(v):
 
     # Remove vertex object from memory
     del v
-
-
-def delete_vertex(v):
-    global root
-    if v.right is None:
-        remove(v)
-    else:
-        next_biggest, root = find(root, v.key + 1)
-
-        # Bring vertex to delete back to root
-        root = splay(v)
-
-        # Replace root with next_biggest
-        root.key = next_biggest.key
-
-        # Promote next_biggest.right (if any)
-        if next_biggest.right is None:
-            # Nothing to promote, update root accordingly
-            root.right = None
-            pass
-        else:
-            # Need to promote
-            parent = next_biggest.parent
-            promoted_right = next_biggest.right
-            promoted_right.parent = parent
-
-            # Check which child to put it under
-            if promoted_right.key < parent.key:
-                parent.left = promoted_right
-            else:
-                parent.right = promoted_right
-
-        # Update sum values after deletion
-        update(root)
-
-        # Remove vertex object from memory
-        del next_biggest
-
-
-def erase(x):
-    global root
-    result, root = find(root, x)
-    if result is None:
-        # x is larger than any element in tree, no next value
-        return
-    if result.key == x:
-        # Key is in tree, need to delete_vertex
-        find(root, x+1)
-        root = splay(result)
-        delete_vertex(result)
-    else:
-        # Key isn't in tree, nothing to delete
-        pass
 
 
 def search(x):
