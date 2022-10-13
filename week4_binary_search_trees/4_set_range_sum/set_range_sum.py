@@ -123,9 +123,8 @@ def merge(left, right):
     return right
 
 
+# ---------------------------------------------------------------------------- #
 # Code that uses splay tree to solve the problem
-
-root = None
 
 
 def insert(x):
@@ -137,7 +136,6 @@ def insert(x):
         return
 
     parent, root = find(root, x)
-
 
     if parent is None:
         # x is larger than any key in set. find(root, x) splayed last biggest key to root
@@ -162,18 +160,7 @@ def insert(x):
 
     _, root = find(root, x)
 
-
-
     return
-
-
-# def insert(x):
-#     global root
-#     left, right = split(root, x)
-#     new_vertex = None
-#     if right is None or right.key != x:
-#         new_vertex = Vertex(x, x, None, None, None)
-#     root = merge(merge(left, new_vertex), right)
 
 
 def remove(v):
@@ -249,7 +236,6 @@ def delete_vertex(v):
 
         # Remove vertex object from memory
         del next_biggest
-
 
 
 def erase(x):
@@ -385,7 +371,11 @@ def print_tree(order, v, placement):
     return
 
 
-print("\n\n-----------------------------------------------------------------------------\n\n")
+# ------------------------------------------------------------------------------------------- #
+print("\n\n------------------------------------------------------------------------------\n\n")
+
+
+root = None
 MODULO = 1000000001
 n = int(stdin.readline())
 last_sum_result = 0
