@@ -238,15 +238,17 @@ def remove_largest(v):
 
 def search(x):
     global root
+
     result, root = find(root, x)
+
     if root is not None:
         if root.key == x:
             return True
-    if result is None:
-        return False
-    if result.key == x:
-        return True
+        else:
+            return False
+
     else:
+        # Empty tree
         return False
 
 
