@@ -146,21 +146,19 @@ def insert(x):
         # x is larger than any key in set. find(root, x) splayed last biggest key to root, so can just add it to right
         root.right = new_vertex
         new_vertex.parent = root
-        # Update root sums
-        update(root)
+
     elif x < parent.key:
         # Add x as parent's left child, reattach original left child to new vertex
         left_child = parent.left
         parent.left = new_vertex
         new_vertex.parent = parent
         new_vertex.left = left_child
-        # Update sums, starting from lower vertex
-        update(new_vertex)
-        update(parent)
+
     else:
         # Already in tree, don't need to insert anything
         pass
 
+    # Find newly inserted vertex to update all vertex sums affected by insertion
     _, root = find(root, x)
 
     return
@@ -375,7 +373,7 @@ def print_tree(order, v, placement):
 
 
 # ------------------------------------------------------------------------------------------- #
-print("\n\n------------------------------------------------------------------------------\n\n")
+# print("\n\n------------------------------------------------------------------------------\n\n")
 
 
 root = None
