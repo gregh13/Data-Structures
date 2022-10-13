@@ -12,13 +12,13 @@ class Rope:
 
 	def process_naive(self, i, j, k):
 		left_part = self.s[:i]
-		cut_part = self.s[i:j]
-		right_part = self.s[j:]
+		cut_part = self.s[i:j+1]
+		right_part = self.s[j+1:]
 		small_join = left_part + right_part
 		new_left = small_join[:k]
 		new_right = small_join[k:]
 		self.s = new_left + cut_part + new_right
-		pass
+		return
 
 
 rope = Rope(sys.stdin.readline().strip())
