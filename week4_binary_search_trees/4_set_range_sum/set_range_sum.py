@@ -194,7 +194,8 @@ def delete_vertex(v):
     global root
 
     if v.right is None:
-        remove(v)
+        # No next largest number, means that key to delete is largest in set
+        remove_largest(v)
 
     else:
         next_biggest, root = find(root, v.key + 1)
@@ -229,39 +230,17 @@ def delete_vertex(v):
         del next_biggest
 
 
-def remove(v):
+def remove_largest(v):
     global root
 
-    parent = v.parent
-
-    if parent is None:
-        # This means vertex to remove is the root vertex
-        # Vertex doesn't have a right child (see delete_vertex), so just make v.left new root (if any)
-        if v.left is not None:
-            root = v.left
-            root.parent = None
-        else:
-            # Was the only vertex in tree, now empty tree
-            root = None
-
-    elif v.left is None:
-        # Vertex is a leaf, easy to delete
-        if v.key < parent.key:
-            parent.left = None
-        else:
-            parent.right = None
-
+    # Vertex to remove is currently root and has no right child. Need to check if it has a left child
+    if v.left is not None:
+        # Make left child the root
+        root = v.left
+        root.parent = None
     else:
-        # Promote v.left
-        v_left_child = v.left
-        v_left_child.parent = parent
-        if v_left_child.key < parent.key:
-            parent.left = v_left_child
-        else:
-            parent.right = v_left_child
-
-    # Update sum value after vertex removal
-    update(parent)
+        # No left child, meaning it was the only vertex in tree, now empty tree
+        root = None
 
     # Remove vertex object from memory
     del v
