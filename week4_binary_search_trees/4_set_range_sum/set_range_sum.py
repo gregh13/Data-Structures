@@ -215,35 +215,37 @@ def remove(v):
 def delete_vertex(v):
     global root
     if v.right is None:
-
         remove(v)
     else:
-
         next_biggest, root = find(root, v.key + 1)
-        # Bring vertex to delete back to top (should just be one case of zig)
 
+        # Bring vertex to delete back to root
         root = splay(v)
 
-        # Replace v with next_biggest
-        v.key = next_biggest.key
+        # Replace root with next_biggest
+        root.key = next_biggest.key
 
         # Promote next_biggest.right (if any)
         if next_biggest.right is None:
             # Nothing to promote, update root accordingly
-            v.right = None
+            root.right = None
             pass
         else:
-
+            # Need to promote
             parent = next_biggest.parent
             promoted_right = next_biggest.right
             promoted_right.parent = parent
+
+            # Check which child to put it under
             if promoted_right.key < parent.key:
                 parent.left = promoted_right
             else:
                 parent.right = promoted_right
 
-        update(v)
+        # Update sum values after deletion
+        update(root)
 
+        # Remove vertex object from memory
         del next_biggest
 
 
