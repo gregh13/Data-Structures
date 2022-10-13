@@ -10,7 +10,7 @@ class Rope:
 	def result(self):
 		return self.s
 
-	def process_naive(self, i, j, k):
+	def process(self, i, j, k):
 		left_part = self.s[:i]
 		cut_part = self.s[i:j+1]
 		right_part = self.s[j+1:]
@@ -25,5 +25,5 @@ rope = Rope(sys.stdin.readline().strip())
 q = int(sys.stdin.readline())
 for _ in range(q):
 	i, j, k = map(int, sys.stdin.readline().strip().split())
-	rope.process_naive(i, j, k)
+	rope.process(i, j, k)
 print(rope.result())
