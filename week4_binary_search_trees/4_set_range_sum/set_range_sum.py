@@ -1,9 +1,10 @@
 from sys import stdin
 
+
+# ---------------------------------------------------------------------------------------------------- #
 # Splay tree implementation
 
 
-# Vertex of a splay tree
 class Vertex:
     def __init__(self, key, sum, left, right, parent):
         self.key, self.sum, self.left, self.right, self.parent = key, sum, left, right, parent
@@ -123,39 +124,46 @@ def merge(left, right):
     return right
 
 
-# ---------------------------------------------------------------------------- #
+# ---------------------------------------------------------------------------------------------------- #
 # Code that uses splay tree to solve the problem
 
 
 def insert(x):
     global root
+
+    # Initialize new vertex
     new_vertex = Vertex(x, x, None, None, None)
+
     if root is None:
         # First vertex of tree
         root = new_vertex
         return
 
+    # Check if x is in tree and if not, where to put it
     parent, root = find(root, x)
 
     if parent is None:
-        # x is larger than any key in set. find(root, x) splayed last biggest key to root
+        # x is larger than any key in set. find(root, x) splayed last biggest key to root, so can just add it to right
         root.right = new_vertex
         new_vertex.parent = root
+        # Update root sums
         update(root)
     elif x < parent.key:
+        # Add x as parent's left child, reattach original left child to new vertex
         left_child = parent.left
         parent.left = new_vertex
         new_vertex.parent = parent
         new_vertex.left = left_child
+        # Update sums, starting from lower vertex
         update(new_vertex)
         update(parent)
     elif x > parent.key:
+        # Add x as parent's right child
         parent.right = new_vertex
         new_vertex.parent = parent
-        update(new_vertex)
         update(parent)
     else:
-        # Already in tree, don't need to insert
+        # Already in tree, don't need to insert anything
         pass
 
     _, root = find(root, x)
