@@ -322,6 +322,9 @@ def range_sum(start, end):
     return total_sum
 
 
+# ------------------------------------------------------------------------------------------- #
+# Debugging tool to print different tree orders and placement (e.g. where print_tree is being called from)
+
 def print_tree(order, v, placement):
     def get_inorder(vertex):
         # Check if null child node
@@ -339,7 +342,7 @@ def print_tree(order, v, placement):
         if vertex is None:
             return
 
-        # Traverse to left child, then parent, then right child
+        # Traverse to left child, then right child, then parent
         get_inorder(vertex.left)
         get_inorder(vertex.right)
         results.append(vertex.key)
@@ -358,7 +361,7 @@ def print_tree(order, v, placement):
 
 
 # ------------------------------------------------------------------------------------------- #
-# print("\n\n------------------------------------------------------------------------------\n\n")
+# Input and tree variable initialization
 
 
 root = None
