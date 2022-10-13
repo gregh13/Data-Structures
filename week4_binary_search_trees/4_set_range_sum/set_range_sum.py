@@ -166,15 +166,25 @@ def insert(x):
 
 def erase(x):
     global root
+
+    # Check if x is in tree
     result, root = find(root, x)
+
     if result is None:
         # x is larger than any element in tree, no next value
         return
     if result.key == x:
         # Key is in tree, need to delete_vertex
+
+        # First find next largest (i.e. the replacement vertex)
         find(root, x+1)
+
+        # Then move vertex to delete back to root (in case x+1 is in tree, it would have been splayed to root)
         root = splay(result)
+
+        # Call delete function now that vertex and it's replacement have been splayed to the top
         delete_vertex(result)
+
     else:
         # Key isn't in tree, nothing to delete
         pass
