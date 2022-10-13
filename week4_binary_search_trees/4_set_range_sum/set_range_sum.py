@@ -255,69 +255,71 @@ def search(x):
 def range_sum(start, end):
     global root
 
+    # Initialize sum calculation variables
     left_subtrahend = 0
     right_subtrahend = 0
     total_sum = 0
 
     if root is None:
-        # No tree
+        # Empty tree
         return total_sum
 
+    # Search for first vertex in tree with a key within the sum range query
     start_result, root = find(root, start)
+
     if start_result is None:
         # All keys in tree are smaller than range start
         return total_sum
 
+    # Store key into value for use below
     start_result_val = start_result.key
 
+    # Check if first key found in tree after beginning of range is within the end bound
     if start_result_val >= end:
         if start_result_val == end:
             # Just one vertex in range
-            return start_result_val
+            total_sum = start_result_val
+            return total_sum
         else:
             # Range is too small, no keys inside
             return total_sum
 
-
+    # Root sum will always be the total of all key values in the tree
     total_sum = root.sum
 
+    # If first vertex within the range is not the root, make it the root
     if root.key < start_result_val:
         root = splay(start_result)
 
+    # Check for any vertices that are smaller than the start range (and thus need to be excluded from total sum)
     if root.left is not None:
         left_subtrahend = root.left.sum
 
-    # Update total sum
+    # Update total sum (remove keys before range start)
     total_sum = total_sum - left_subtrahend
+
+    # Search for last vertex within sum range
     end_result, root = find(root, end)
 
     if end_result is None:
-        # No key in tree is larger than range end
+        # No key in tree is larger than range end, so don't need to subtract anything from right bound
         return total_sum
 
     if root.key > end:
-        # End is in between nodes, root.key is next largest (out of range)
+        # End is in between nodes, root.key is next largest (out of sum range)
         if root.left is not None:
+            # Get sum of key that are bigger than end range, need to subtract it from total sum (including root key)
             right_subtrahend = root.sum - root.left.sum
     else:
         # root.key == end
         if root.right is not None:
+            # Get sum of key that are bigger than end range, need to subtract it from total sum (excluding root key)
             right_subtrahend = root.right.sum
 
+    # Update total sum (remove numbers after range end)
     total_sum = total_sum - right_subtrahend
 
-
     return total_sum
-
-
-# def sum(fr, to):
-#     global root
-#     left, middle = split(root, fr)
-#     middle, right = split(middle, to + 1)
-#     ans = 0
-#     # Complete the implementation of sum
-#
-#     return ans
 
 
 def print_tree(order, v, placement):
