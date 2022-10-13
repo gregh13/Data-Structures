@@ -19,6 +19,7 @@ class Rope:
 		# k is the index number of the smaller join list where cut part needs to be inserted
 		new_left = small_join[:k]
 		new_right = small_join[k:]
+		# Put everything back together and overwrite original string variable s
 		self.s = new_left + cut_part + new_right
 		return
 
