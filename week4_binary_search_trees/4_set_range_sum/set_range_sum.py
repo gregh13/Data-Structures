@@ -2,7 +2,7 @@ from sys import stdin
 
 
 # ---------------------------------------------------------------------------------------------------- #
-# Splay tree implementation
+# Splay tree implementation - PROVIDED BY STARTER FILE
 
 
 class Vertex:
@@ -124,8 +124,10 @@ def merge(left, right):
     return right
 
 
+# End of Starter File Code
 # ---------------------------------------------------------------------------------------------------- #
-# Code that uses splay tree to solve the problem
+# ---------------------------------------------------------------------------------------------------- #
+# MY CODE BELOW - Functions that use given splay tree to solve the problem
 
 
 def insert(x):
@@ -360,8 +362,10 @@ def print_tree(order, v, placement):
     return
 
 
+# END OF MY CODE
 # ------------------------------------------------------------------------------------------- #
-# Input and tree variable initialization
+# ------------------------------------------------------------------------------------------- #
+# Input and tree variable initialization - PROVIDED BY STARTER FILE
 
 
 root = None
